@@ -1,1 +1,21 @@
-hello
+Hibernate Dirty checking:--
+------------------------------
+Dirty Checking  is one of the features of hibernate. In dirty checking, hibernate automatically detects whether
+an object is modified (or) not and need to be updated. As long as the object is in persistent state 
+i.e., bound to a particular Session(org.hibernate.Session). Hibernate monitors any changes to the objects and executes sql.
+
+Note:- For dirty checking to work, the object must exist in cache.
+
+Example:--
+
+Employee employee = session.get(Employee.class, 2);
+		if(employee != null) {
+			session.beginTransaction();
+			employee.setSalary(65000.00);
+//			session.update(employee);
+			session.getTransaction().commit();
+			
+		}else {
+			System.out.println("Employee dosen't exist with provided id,,,.");
+		}
+    
