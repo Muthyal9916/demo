@@ -24,6 +24,93 @@ difference between session.load() adn session.get():--
 session.load(): if record is not found in the database it will return object not found or proxy it will return 
 session.get(): if record is not found in the database it will return null pointer exception.
 		
-		
+=================================
+
+
+hbm2ddl properties:--
+
+--> In case of Update if schema is not present in DB,then the schema is created.
+--> In case of Validate if schema is does'nt exit in db, it is not created.instead it will throw an error-Table not found.
+    it will not making any changes in db.
+--> In case of create-drop schema is not dropped on closing the session. It drops only on closing the sessionFactory.
+
+generate primarykeys in hibernate:--
+
+---> There are 4 primarykeys are generated
+1. GenerationType.AUTO
+2. GenerationType.IDENTITY
+3. GenerationType.SEQUENCE
+4. GenerationType.TABLE 
+
+ GenerationType.AUTO in hibernate 5 one extra table is created in that table only one column name NEXT_VAL, in this column next generation 
+             value is there.
+
+Code Systax;
+@GeneratedValue(strategy=GenerationType.AUTO,generator="empid_generator")
+	@SequenceGenerator(name="empid_generator",initialValue=1,allocationSize=1,sequenceName="empid_seq")
+
+GenerationType.IDENTITY it simply generate the primay key in sequence
+GenerationType.SEQUENCE 
+
+
+ValueTypes and Embedding Objects in Hibernate;
+==================================================
+@Embeddable:-- While using this annotation in Association it means we have Employee and Address beans
+                Here Employee entity class Addressbean is using and setting as @Embeddable
+                it means no need to create seperate table for address bean,simply show the address values in employee table only
+               for this purpose we are using Embeddable.
+
+example:-- 
+
+@Entity
+@Table(name="employeeAdd_table")
+public class Employee {
+	@Embedded
+	private Address address;//here this is the value object
+}
+ 
+@Embeddable
+public class Address {
+	@Column(name="street_name",length=50)
+	private String street;
+}
+
+AttributeOverrides and Embedding Objects in Hibernate;
+==============================================
+@AttributeOverrides:-- Using this annotation with overriding the existing colums and values.
+
+Example: Suppose we have Employee entity with two Addresses in this case without overriding the properties we are using this annotation
+
+  
+@Entity
+@Table(name="employeeAdd_table")
+public class Employee {
+        @Embedded
+	@AttributeOverrides(value= {
+			
+			@AttributeOverride(column = @Column(name="home_street_name"),name="street"),
+			@AttributeOverride(column = @Column(name="home_city_name"),name="city"),
+			@AttributeOverride(column = @Column(name="home_state_name"),name="state"),
+			@AttributeOverride(column = @Column(name="home_pin_code"),name="pincode")
+			
+	})
+	private Address homeaddress;//here this is the value object
+      
+        @Embedded
+	@AttributeOverrides(value= {
+			
+			@AttributeOverride(column = @Column(name="office_street_name"),name="street"),
+			@AttributeOverride(column = @Column(name="office_city_name"),name="city"),
+			@AttributeOverride(column = @Column(name="office_state_name"),name="state"),
+			@AttributeOverride(column = @Column(name="office_pin_code"),name="pincode")
+			
+	})
+       private Address officeaddress;
+}
+
+Adding primarykey in AddressTable:
+===========================================
+@GenericGenerator(name="sequence_gen",strategy="sequence")
+@CollectionId(columns = { @Column(name="address_id") }, generator = "sequence_gen", type = @Type(type = "int"))		
 		
     
