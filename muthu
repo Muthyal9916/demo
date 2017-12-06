@@ -112,5 +112,118 @@ Adding primarykey in AddressTable:
 ===========================================
 @GenericGenerator(name="sequence_gen",strategy="sequence")
 @CollectionId(columns = { @Column(name="address_id") }, generator = "sequence_gen", type = @Type(type = "int"))		
+
+
+OnetoOneRlationship:-(one way binding)
+===================
+Here we have two Entites 
+Employee
+Address
+
+Here Employee table having Address ref
+
+@Entity
+@Table(name="emponeBi_table")
+public class Employee {
+
+@OneToOne(cascade=CascadeType.ALL)
+@OneToOne(cascade=CascadeType.PERSIST)
+	@JoinColumn(name="address_id")
+	private Address address;
+}
+
+@Entity
+@Table(name="addressBi_table")
+public class Address {
+}
+
+In Employee Entity having CascadeType.ALL it means in Main class we can save Parenttable it will automatically save child table also
+In Employee Entity having CascadeType.PERSIST it means in Main class we can persist Parenttable it will automatically persist child table also
+
+onetooneBidirectional(Two way binding):-
+===============================
+Here both Entites having relationships
+
+Here Employee table having Address ref,and Address table having emp ref
+
+@Entity
+@Table(name="emponeBi_table")
+public class Employee {
+
+@OneToOne(cascade=CascadeType.ALL)
+@OneToOne(cascade=CascadeType.PERSIST)
+	@JoinColumn(name="address_id")
+	private Address address;
+}
+
+@Entity
+@Table(name="addressBi_table")
+public class Address {
+
+@OneToOne(mappedBy="address")
+	private Employee employee;
+
+}
+
+Here mappedBy means in address table not created sepearate coloumn 
+
+onetoMany:--
+==============
+In Employee Entity take address entity has a list
+
+
+@Entity
+@Table(name="emponeBi_table")
+public class Employee {
+
+	@OneToMany(cascade=CascadeType.ALL)
+	@JoinTable(name="employee_address_table",joinColumns=@JoinColumn(name="employee_id"),inverseJoinColumns=@JoinColumn(name="address_id"))
+	private List<Address> addressList = new ArrayList<>();
+}
+
+Here JoinTable maintain the Employee entity and Address entity primary keys and foreign keys.
+
+
+onetoMany and Many to one:--
+======================
+Here both sides maintaing relationships
+
+@Entity
+@Table(name="emponeBi_table")
+@DynamicUpdate
+public class Employee {
+	@OneToMany(cascade=CascadeType.ALL,mappedBy="employee",fetch=FetchType.EAGER)
+	private List<Address> addressList = new ArrayList<>();
+}
+
+@Entity
+@Table(name="addressBi_table")
+public class Address {
+
+	@ManyToOne
+	@JoinColumn(name="employee_id")
+	private Employee employee;
+}
+
+Here address table maintaing foreign key
+
+Manytomany:--
+=================
+@Entity
+@Table(name="empManytMany_table")
+@DynamicUpdate
+public class Employee {
+	@ManyToMany(cascade=CascadeType.ALL,fetch=FetchType.EAGER)
+	@JoinTable(name="employee_address_table",joinColumns=@JoinColumn(name="employee_id"),inverseJoinColumns=@JoinColumn(name="address_id"))
+	private List<Address> addressList = new ArrayList<>();
+}
+
+@Entity
+@Table(name="addressMtM_table")
+public class Address {
+	@ManyToMany(mappedBy="addressList")
+	private List<Employee> employeeList = new ArrayList<>();
+}
+
 		
     
