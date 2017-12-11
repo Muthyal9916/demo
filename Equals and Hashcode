@@ -1,6 +1,7 @@
 equals():--
 =================
-It will compare the address of the two objects are equal or not at the same time hashcode return the integer value in the particular object.
+It will compare the address of the two objects are equal or not at the same time hashcode return the integer value
+in the particular object.
 
 -->If two objects are equal according to the equals() method,then calling the hashcode method on
 each of the two objects must produce the same integer result.
