@@ -1,0 +1,40 @@
+package prac;
+
+import java.util.Iterator;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
+
+public class ConcurrentHashmapDemo extends Thread{
+
+	static ConcurrentHashMap map = new ConcurrentHashMap();
+	
+	public void run() {
+		
+		try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+              System.out.println("Child Thread updating Map");
+		}
+		   map.put(103,"C");
+	}
+	
+	
+	public static void main(String[] args) throws InterruptedException {
+		
+		map.put(101,"A");
+		map.put(102,"B");
+		
+		ConcurrentHashmapDemo mythread =  new ConcurrentHashmapDemo();
+		mythread.start();
+		
+		Set s1 = map.keySet();
+		Iterator itr = s1.iterator();
+		while(itr.hasNext()) {
+			Integer it = (Integer) itr.next();
+			System.out.println("Main thread iterating Map and Current Entry is:"+it+",,,,,"+map.get(it));
+			Thread.sleep(3000);
+		}
+		
+		System.out.println(map);
+	}
+}
