@@ -14,3 +14,7 @@ checking the pods in api:--
 ----------------------------- 
 curl http://masterport/api/v1beta1/pods or services or replicationController -k -u admin
 
+creating replicas:-
+------------------------ 
+kubectl scale rc nginx --replicas=5
+
