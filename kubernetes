@@ -12,5 +12,5 @@ curl http://masterport -k -u admin
 
 checking the pods in api:--
 ----------------------------- 
-curl http://masterport/api/v1beta1/pods -k -u admin
+curl http://masterport/api/v1beta1/pods or services or replicationController -k -u admin
 
