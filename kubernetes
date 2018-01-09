@@ -1,0 +1,5 @@
+Create one master and 6 nodes:----
+==================================
+
+gcloud preview container clusters create clustername --zone asia-east1-b --password gmail@123 --num-nodes 6
+
