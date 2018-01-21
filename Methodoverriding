@@ -3,7 +3,8 @@ In Methodoverriding method names and argument types must be matched i.e method s
 co-varient return type:
 -------------------------
 In overriding return types must be same, but this rule is applicable until 1.4 versionn only from 1.5 version onwards we can take 
-co-varient return types -- Child class method return type need to be same as Parent class method return type,its child type also allowed
+co-varient return types -- Child class method return type need to be same as Parent class method return type,its child type also allowed,
+                             It's applicable only for object types not for primitive type.
 
 class Parent
 {
@@ -20,3 +21,10 @@ public String m1()
  }
 } 
 
+parent class method retrun type:-- object,Number,String,double
+------------------------
+
+
+
+child class method return type:--String/object,Number/integer,Object is not applicable because parent to parent is not possible,double only
+------------------------
