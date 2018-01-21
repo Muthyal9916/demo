@@ -27,4 +27,8 @@ parent class method retrun type:-- object,Number,String,double
 
 
 child class method return type:--String/object,Number/integer,Object is not applicable because parent to parent is not possible,double only
-------------------------
+-----------------------
+
+Parent class private methods are not applicable for child class and hence overriding concept not applicable for private methods.
+
+we can't override parent class final methods in child classes, if we are trying to override we will get compiletime error
