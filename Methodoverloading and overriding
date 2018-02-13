@@ -10,6 +10,28 @@ Step1: Automatic promotion in overloading
         byte-short-int-long-float-double
         char-int
 
+example:-- 
+
+public class ClassA {
+
+	
+	public void  m1(int i) {
+		System.out.println("int args");
+	}
+	
+
+	public void  m1(float f) {
+		System.out.println("float args");
+	}
+	
+	public static void main(String[] args) {
+		
+		ClassA a = new ClassA();
+		a.m1('a');
+		a.m1(10l);
+		
+	}
+}
 
 In Methodoverriding method names and argument types must be matched i.e method signatures must be same.
 
