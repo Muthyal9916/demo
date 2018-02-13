@@ -1,3 +1,16 @@
+MethodOverloading:--
+------------------
+Step1: Automatic promotion in overloading
+        While resolving overloaded methods if exact matched method is not available , then we wont get any compile time error
+        immediately , first it will promote argument to the next level and check whether matched method is available or not,if 
+        matched method is available then it will be considered,and if the matched method is not available then compiler promotes 
+        arguments once again to the next level, this process will be continued untill all possible promotions,still if the matched
+        method is not available then we will get compile time error. the following are all possible promotions in overloading.
+        
+        byte-short-int-long-float-double
+        char-int
+
+
 In Methodoverriding method names and argument types must be matched i.e method signatures must be same.
 
 co-varient return type:
