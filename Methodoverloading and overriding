@@ -79,6 +79,52 @@ public class ClassA {
 Note : In this case both string and string buffer are same level, it will throw ambigues error
 
 Step4:--
+public class ClassA {
+	
+	public void m1(int i,float f) {
+		System.out.println("String version");
+	}
+	
+	public void m1(float f,int i) {
+		System.out.println("Object version");
+	}
+	
+	public static void main(String[] args) {
+		
+		ClassA a = new ClassA();
+		a.m1(10,10.5f);
+		a.m1(10,10);//compilation error
+		a.m1(10.5f,10.5f); // compilation error
+		
+	}
+}
+
+Step5:
+public class ClassA {
+	
+	public void m1(int x) {
+		System.out.println("String version");
+	}
+	
+	public void m1(int... x) {
+		System.out.println("Object version");
+	}
+	
+	
+	public static void main(String[] args) {
+		
+		ClassA a = new ClassA();
+		a.m1();
+		a.m1(10,20,30,40,50);
+	       a.m1(10);
+	}
+}
+
+In general var-args method will get least priority ie. if no other method matched then only var arg method will get the 
+chance , It exactly same as default case inside switch.
+
+
+
 
 
 In Methodoverriding method names and argument types must be matched i.e method signatures must be same.
