@@ -58,6 +58,29 @@ Note: while resolving overloaded methods compiler will always gives the presiden
 parent type arguments.
 
 
+Step3:- 
+public class ClassA {
+	
+	public void m1(String s) {
+		System.out.println("String version");
+	}
+	
+	public void m1(StringBuffer sb) {
+		System.out.println("stringbuffer version");
+	}
+	
+	public static void main(String[] args) {
+		ClassA a = new ClassA();
+		a.m1("durga");
+		a.m1(new StringBuffer("durga"));
+		a.m1(null);
+	}
+}
+Note : In this case both string and string buffer are same level, it will throw ambigues error
+
+Step4:--
+
+
 In Methodoverriding method names and argument types must be matched i.e method signatures must be same.
 
 co-varient return type:
