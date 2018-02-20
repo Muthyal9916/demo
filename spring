@@ -106,4 +106,10 @@ public class ClientTest {
 
 }
 
+ApplicationContext:--
+-------------
+ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+		Employee emp = context.getBean(Employee.class);
+		System.out.println(emp.getEmployeeId()+"\t"+emp.getEmpName());
+
    
