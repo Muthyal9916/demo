@@ -1,0 +1,109 @@
+The Spring Container is the core of the spring framework. The container creates the objects,wire them together,configure them,
+and manage their complete life cycle from creation till destruction.
+   The spring container uses Dependency Injection to manage the components that make up an application.
+   1. Beanfactory container
+   2. Application context container
+   
+Beanfactory:--
+-------------
+It is an interface.
+It is the main and the basic way to access the Spring container.
+It provides the DI/IOC mechanism for the spring.
+It is built upon factory design pattern.
+It loads the bean definitions and their property descriptions from configuration file.
+Instantiates the beans when they are requested.
+
+Note:--
+Beanfactory doesn't create the objects of beans immediately,when they are requested such as by getBean() method.
+
+The way of create Beanfactory 
+Resource  resource = new FileSystemResource("beans.xml");
+Beanfactory factory = new XmlBeanFactory(resource);
+
+Sample Prog:--
+--------------
+Bean:--
+public class Message {
+	private int messageId;
+	private String message;
+	public int getMessageId() {
+		return messageId;
+	}
+	public void setMessageId(int messageId) {
+		this.messageId = messageId;
+	}
+	public String getMessage() {
+		return message;
+	}
+	public void setMessage(String message) {
+		this.message = message;
+	}
+}
+Beans.xml
+--------------
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://www.springframework.org/schema/context
+                           http://www.springframework.org/schema/context/spring-context.xsd ">
+
+      
+       <bean id="message" class="springprac.Message">
+       <property name="messageId" value="101"/>
+       <property name="message" value="Hello"/>
+       </bean>
+
+  <alias name="message" alias="bean1"/>
+  <alias name="message" alias="bean2"/>
+
+</beans>
+
+clientTest:--
+------------
+public class ClientTest {
+
+	public static void main(String[] args) {
+
+		
+		Resource resource = new ClassPathResource("Beans.xml");
+		BeanFactory beanFactory = new XmlBeanFactory(resource);
+		
+		Object obj = (Object)beanFactory.getBean("message");
+		if(obj != null) {
+			
+			Message message = (Message) obj;
+			System.out.println(message.getMessageId()+"\t"+message.getMessage());
+		}
+		
+		
+		System.out.println("===============================");
+		
+		Message message = beanFactory.getBean("message", Message.class);
+		System.out.println(message.getMessageId()+"\t"+message.getMessage());
+		
+		System.out.println("===============================");
+		
+		String[] message1 = beanFactory.getAliases("message");
+		for(String aliasNames:message1) {
+			System.out.println(aliasNames);
+		}
+		
+		System.out.println("===============================");
+		Message message2 = beanFactory.getBean(Message.class);
+		System.out.println(message2.getMessageId()+"\t"+message2.getMessage());
+		
+		System.out.println("===============================");
+		Class<?> cls = beanFactory.getType("message");
+		System.out.println(cls.getName());
+		
+		
+		System.out.println("===============================");
+		System.out.println(beanFactory.isSingleton("message"));
+		
+	}
+
+}
+
+   
