@@ -112,4 +112,33 @@ ApplicationContext context = new ClassPathXmlApplicationContext("applicationCont
 		Employee emp = context.getBean(Employee.class);
 		System.out.println(emp.getEmployeeId()+"\t"+emp.getEmpName());
 
+
+Bean Scopes:
+--------------
+The beans in spring container can be created in seven scopes.
+1. Singleton
+2. Prototype
+3. request
+4. session
+5. application
+6. global-session
+7. websocket
+
+Singleton:--
+--------------
+It returns a single bean instance per Spring IOC Container.
+This singleton instance is stored in a cache if any subsequent requests comes it will return the cached object.
+If no bean scope is specifed in configuration file, by default is Singleton
+
+Prototype:--
+------
+It returns a new bean instance each time when requested.
+It has not store any cache version like singleton.
+
+request:--
+-----------
+It contains single HTTP-request.
+Each and every http request will have its own instance of bean is created.
+Only valid in the context of a web-aware spring application context.
+
    
