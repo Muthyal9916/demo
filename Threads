@@ -9,3 +9,70 @@ yield():
 3. If several waiting threads with same priority available then we can't expect exact which thread will get chance for execution.
 4. The thread which is yielded when it get chance once again for execution it depends on mercy of the thread sheduler.
 
+public class ThreadYieldDemo {
+
+	public static void main(String[] args) {
+
+		
+		Mythread thread = new Mythread();
+		thread.start();
+		for(int i=0;i<5;i++) {
+			System.out.println("Main thread");
+		}
+	}
+
+}
+
+class Mythread extends Thread{
+	
+	@Override
+	public void run() {
+		for(int i=0;i<5;i++) {
+			Thread.yield();
+			System.out.println("Child Thread");
+		}
+	}
+}
+
+
+join():-
+1. If a thread wants to wait() until completing some other thread then we should go for join() method.
+example:
+If a Thread  t1 executes t2.join() then t1 should go for waiting state until completing t2.
+
+public class Threadjoindemo {
+
+	public static void main(String[] args) throws InterruptedException {
+
+		Mythred1 t1 = new Mythred1();
+		t1.start();
+		t1.join();
+		for(int i=0;i<5;i++) {
+			System.out.println("Rama thread.");
+		}
+	}
+
+}
+class Mythred1 extends Thread{
+	
+	@Override
+	public void run() {
+
+		for(int i=0;i<5;i++) {
+			System.out.println("seetha thread");
+			try {
+				Thread.sleep(2000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+}
+
+
+
+
+
+
+
