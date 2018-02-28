@@ -11,6 +11,34 @@ Features of Python
 6. Dynamically Typed Programming(it means we are not providing datatype)
 7. Both Procedure Oriented and Object oriented 
 8. Interpreted (we are not going to compile)
-9. Extensible
-10. Embeded
+9. Extensible (can work with other languages)
+10. Embeded (other language can work with python)
 11. Extensive Library
+
+Limitations of Python:-
+------------------------------
+1. Performance wise is not upto the mark.(Because of Interpreter it is seeing only line by line)
+2. Mobile Applications
+
+Myth: 
+---------
+Python is not suitable for large scale enterprise applications.
+Python is not pure object oriented programming language.
+
+Flavours of Python:--
+-----------------------
+1. CPython
+2. Jython or JPython
+3. IronPython to work with csharp .net platform
+4. Pypy Performance Python
+5. RubyPython
+6. AnacondaPython To handle Bigdata
+7. Stackless(Python for Concurrency)
+
+Python Versions:--
+------------
+Python 1.0 introduced in Jan 1994
+Python 2.0 introduced in Oct 2000
+Python 3.0 introduced in Dec 2008
+Python 3.6.3 2016
+
