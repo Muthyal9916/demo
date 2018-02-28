@@ -141,4 +141,89 @@ It contains single HTTP-request.
 Each and every http request will have its own instance of bean is created.
 Only valid in the context of a web-aware spring application context.
 
+call back interface:-
+------------------------
+If Object is no longer using then we will use call back methods.
+1. implements InitializingBean,DisposableBean
+here after initialization properties will display and then destroy the object.
+
+public class Message implements InitializingBean,DisposableBean{
+
+	private int messageId;
+	private String message;
+	
+	public int getMessageId() {
+		return messageId;
+	}
+	public void setMessageId(int messageId) {
+		this.messageId = messageId;
+	}
+	public String getMessage() {
+		return message;
+	}
+	public void setMessage(String message) {
+		this.message = message;
+	}
+	@Override
+	public void afterPropertiesSet() throws Exception {
+		System.out.println("Bean is going through init process.");		
+	}
+	@Override
+	public void destroy() throws Exception {
+		System.out.println("Bean is going through destroy");		
+		
+	}
+	 
+}
+
+2 . Here we can apply all beans call back functions 
+
+
+public class Message{
+
+	private int messageId;
+	private String message;
+	
+	public int getMessageId() {
+		return messageId;
+	}
+	public void setMessageId(int messageId) {
+		this.messageId = messageId;
+	}
+	public String getMessage() {
+		return message;
+	}
+	public void setMessage(String message) {
+		this.message = message;
+	}
+	public void init() throws Exception {
+		System.out.println("Bean is going through init process.");		
+	}
+	public void destroy() throws Exception {
+		System.out.println("Bean is going through destroy");		
+		
+	}
+	
+}
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://www.springframework.org/schema/context
+                           http://www.springframework.org/schema/context/spring-context.xsd " default-init-method="init" default-destroy-method="destroy">
+
+      
+       <bean id="message" class="model.Message" >
+         <property name="messageId" value="104"/>
+          <property name="message" value="Hi"/>
+       </bean>
+
+		
+</beans>
+
+
+
+
    
