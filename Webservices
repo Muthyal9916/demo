@@ -1,0 +1,8 @@
+Restful webservices:--
+------------------------
+Resource - What ever the data/response we will get from the server is knows as Resource.
+Each Resource can be accessed by its URL's.
+We can get the Resource from the Restful service in different format like HTML,XML,JSON,TEXT,PDF but we mainly prefer JSON only.
+Rest guidelines always talks about stateless communication between client and the server.
+Stateless means every single request from client to server will be considered as a fresh request.
+Because of this reason Rest always prefers HTTP as it is a stateless protocal.
