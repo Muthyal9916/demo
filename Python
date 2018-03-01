@@ -42,3 +42,28 @@ Python 2.0 introduced in Oct 2000
 Python 3.0 introduced in Dec 2008
 Python 3.6.3 2016
 
+Identifiers in the Python:--
+We can define identifiers are variable names, class names, method names.
+Identifiers are case sensitive
+
+Rules for Identifiers:--
+-----------
+1. alphabets(a to z, A to  Z)
+2. digits(0 to 9)
+3. _
+4. we cant start with digits
+5. we cant use reserved words
+6. No lenght limit for python identifier
+7. we can define any identifer starts with underscore(_) we can say this is private identifer if it is __ stronly identifier
+
+
+Reserved words:--
+-------------
+In Python having 33 reserverd words
+True,False,None,and,or,not,is,if,else,elif,while,for,break,continue,return,in,yield,try,except,finally,raise,assert,import,
+from,as,class,def,pass,global,nonlocal,lambda,del,with
+
+
+
+
+
