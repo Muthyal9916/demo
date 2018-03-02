@@ -81,6 +81,16 @@ frozenset
 dict 
 none
 
+slice operator:--
+-------
+s=[beginindex:endindex]
+returns substring from begin index to end-1 index
+
+s='durga'
+s[1:4]==> urg
+s[1:]==>urga
+s[:4]===>durg
+s[:]====>durga it will print full string
 
 
 
