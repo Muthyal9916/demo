@@ -70,6 +70,16 @@ class Mythred1 extends Thread{
 	
 }
 
+If a thread calls notify() on any object , it releases the lock of that object but may not immediately.
+Except wait,notify,notifyall there is no other method where thread releases the lock.
+Which of the following is valid
+1. If a thread calls wait() immediately it will entered into waiting state with out releasing any lock invalid
+2. If a thread calls wait() it releases the lock of that object,but may not immediately invalid
+3. If a thread calls wait() on any object it releases all locks acquired by that thread and immediately entered into waiting state invalid.
+4. If a thread calls wait() on any object it immediately releases the lock of that particular object and entered into waiting state. valid
+5. If a thread calls notify() on any object it immediately relases the lock of that particular object invalid.
+6. If a thread calls notify() on any object it releases the lock of that object , but may not immediately  valid.
+
 
 
 
