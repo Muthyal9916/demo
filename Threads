@@ -81,6 +81,60 @@ Which of the following is valid
 6. If a thread calls notify() on any object it releases the lock of that object , but may not immediately  valid.
 
 
+Inter thread communication:--
+------------------
+Synchronized threads to communicate to each other
+
+
+public class BankAccount {
+	
+	private int amount=10000;
+	
+	synchronized void withdraw(int amount){
+		
+		System.out.println("Going to withdraw.....");
+		if(this.amount < amount){
+			System.out.println("Less balance,waiting for deposit....");
+			try{
+				wait();
+			}catch(Exception e)
+			{
+				e.printStackTrace();
+			}
+		}
+		this.amount -= amount;
+		System.out.println("Withdraw completed...");
+		
+	}
+
+	synchronized void deposit(int amount){
+		System.out.println("Going to deposit");
+		this.amount +=amount;
+		System.out.println("deposit completed..");
+		notify();
+	}
+}
+public class Sample {
+
+	
+	public static void main(String[] args) {
+
+		final BankAccount bankAccount =  new BankAccount();
+		new Thread("Thread 1"){
+			public void run() {
+				bankAccount.withdraw(50000);
+			};
+		}.start();
+		
+		new Thread("Thread 2"){
+			public void run() {
+				bankAccount.deposit(80000);
+			};
+		}.start();
+	}
+
+}
+
 
 
 
