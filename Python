@@ -115,7 +115,43 @@ tuple data type:--()
 --------------
 tuple is immutable
 
-instead of null we can insert NONE 
+instead of null we can insert NONE
+
+range():--
+----------- 
+range datatype represents a sequence of values.
+immutable
+
+Form-1:
+--------range(x)
+It represents values from 0 to 9(end-1)
+
+Form-2:--
+------------
+range(10,30)--> to represent numbers from 10 to 29
+
+Form-3:--
+-----
+range(10,50,5) --> it will increments by 5
+
+Set:-- { }
+------
+mutable
+Insertion order is not preserved.
+Duplicates are not allowed.while inserting duplicate it will not get any compilation error
+index concept is not applicable,
+slicing concept is not applicable.
+
+frozenset datatype:-
+-----
+Immutable
+if we want to represent a unique values, no one is change to content then we can grow for frozenset.
+
+dict:-
+---
+mutable
+
+
 
 
 
