@@ -135,7 +135,36 @@ public class Sample {
 
 }
 
-
+Locks:--
+---------------
+ReentrantLock:-- It is the implementation class of Lock interface and it is the direct child class of object.
+                 Reentrant means a thread can acquire same lock multiple times without any issue.
+		 internally reentrant lock increments threads personal count whenever we called lock method and
+		 decrements count value whenever thread calls unlock() and lock will be released, whenever count reaches 
+		 zero.
+Constructors:--
+---------------- ReentrantLock l = new ReentrantLock();
+                creates an instance of reentrant lock .
+	    2.  ReentrantLock l = new ReentrantLock(boolean fairness); creates reentrant lock with given fairness policy 
+	        it the fairness is true then longest waiting thread can acquire the lock if it is available i.e it follows
+		First come first serve policy, if fairness is false then which waiting thread will get the chance we cant 
+		expect.
+		The default value for fairness is False.
+		which of the folloing declarations are equal.
+		ReentrantLock l = new ReentranctLock();
+		ReentrantLock l2 = new ReentranctLock(true);
+		ReentrantLock l3 = new ReentranctLock(false); 
+		All the above if 1 and l3 rd are equal
+		
+		Important methods of ReentrantLock:--
+		void lock()
+		boolean trylock()
+		boolean trylock(Long l,TimeUnit t)
+		void lockinterruptibly()
+		void unlock()
+		
+	
+	   
 
 
 
