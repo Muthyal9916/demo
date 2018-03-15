@@ -201,7 +201,7 @@ class Display {
 	
 	public  void wish(String name) {
 		
-		lock.lock();
+		lock.lock(); ------> line 1
 		
 		for(int i=0;i<5;i++) {
 			
@@ -215,9 +215,12 @@ class Display {
 			
 			System.out.println(name);
 		}
-		lock.unlock();
+		lock.unlock(); -----> line 2
 	}
 }	
+
+If we comment line 1 and line2 then the thread will be executed simuntaneously and we will get irregular output.
+If we are not commenting lines1 and 2 then threads will be executed one by one and we will get regular output.
 	   
 -----------------------------------
 
@@ -254,7 +257,7 @@ class Mythread extends Thread{
 
 class Display {
 
-	public  void wish(String name) {
+	public  synchronized void wish(String name) {
 		
 		for(int i=0;i<5;i++) {
 			
@@ -271,6 +274,51 @@ class Display {
 		
 	}
 }
+
+Demo of trylock():---
+--------------------
+class Mythread3 extends Thread{
+	
+	static ReentrantLock l = new ReentrantLock();
+	
+	public Mythread3(String name) {
+		super(name);
+		
+	}
+	
+	@Override
+	public void run() {
+		
+		if(l.tryLock()) {
+			System.out.println(Thread.currentThread().getName()+",,,,,,got lock performing safe operations.");
+			
+			try {
+				Thread.sleep(2000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			l.unlock();
+		}else {
+			System.out.println(Thread.currentThread().getName()+",,,,,,unable to get lock and hence performing alternative  operations.");
+		}
+	}
+	
+}
+
+
+public class TrylockDemo {
+
+	public static void main(String[] args) {
+		
+		Mythread3 t1 = new Mythread3("First thread");
+		Mythread3 t2 = new Mythread3("Second thread");
+		
+		t1.start();
+		t2.start();
+		
+	}
+}
+
 
 
 
