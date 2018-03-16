@@ -161,3 +161,23 @@ child class method return type:--String/object,Number/integer,Object is not appl
 Parent class private methods are not applicable for child class and hence overriding concept not applicable for private methods.
 
 we can't override parent class final methods in child classes, if we are trying to override we will get compiletime error
+
+How to define user defined Immutable class:--
+---------------------------------------------
+Step -1 : We can declare class as public final
+Step -2 : We can declare properties as final
+Step -3 : We can declare public constructor
+Step -4 : we can declare only getter methods
+
+public final class Immutable{
+	
+private final int a;
+	
+Immutable(int a){
+		this.a = a;
+	}
+
+	public int getA() {
+		return a;
+	}
+}
