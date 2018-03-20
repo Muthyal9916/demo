@@ -1,0 +1,45 @@
+Spring Cloud:--
+--------------
+          Spring Cloud provides tools for developers to quickly build some of the common patterns in distributed systems.
+          e.g.(Configuration management,service discovery,circuit breakers,intelligent routing,micro-proxy,control bus,
+          one-time tokens,global locks,leadership election,distributed sessions,cluster state.)
+                    Using spring cloud developers can quickly stand up services and applications that implement those patterns,
+           They will work well in any distributed environment.
+                
+Distributed Environments:--
+----------------------------
+          A Distributed system is a network that consists of autonomous computers that are connected using a distribution middleware.
+ they help in sharing different resources and capabilities to provide users with a single and integrated  coherent network.        
+
+Advantages and Disadvantages in Distributed Systems:--
+-----------------------------------------
+
+Advantages:-
+----------
+1. Shareability
+2. Expandability
+3. Local Autonomy
+4. Improved performance
+5. Improved reliability and availability
+6. Potential cost reduces
+
+Dis-Advantages:--
+--------------
+1. Network reliance
+2. Complexities
+3. Security
+4. Multiple point of failure
+
+Spring Cloud Features:--
+------------------
+1. Distributed/Versioned configuration
+2. Service registration and discovery
+3. Routing
+4. Service to service calls
+5. Load Balancing
+6. Circuit breakers
+7. Global locks
+8. Distributed messaging
+
+
+      
