@@ -1,0 +1,5 @@
+Microservices are independent service.
+We can divide monolothic applications into small applications.
+Each application works as service,
+we can implement individually,independently.
+Finally we can user Rest Apis to communicate to each servcies.Usually Http
