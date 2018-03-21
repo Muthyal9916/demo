@@ -6,3 +6,31 @@ We can get the Resource from the Restful service in different format like HTML,X
 Rest guidelines always talks about stateless communication between client and the server.
 Stateless means every single request from client to server will be considered as a fresh request.
 Because of this reason Rest always prefers HTTP as it is a stateless protocal.
+
+Caching:--
+--------------------
+Caching is process of storing server response in client side.so that a client needs not to make server request for same resource so 
+many times.
+
+JAX-RS Annotations:--
+------------------
+1. @webservice
+2. @Path    ----- It's a class & method level of annotation
+                  This will check the path next to the base URL
+3. @PathParam
+4. @GET
+5. @POST
+6. @PUT
+7. @HEAD
+8. @DELETE
+9. @OPTIONS
+10. @FormParam
+11. @QueryParam
+12. @HeaderParam
+13. @CookieParam
+14. @Produces --- here we will give our service to other person to utilize 
+              --- we can say this is a method level annotation , By using this annotation we can the get the output as you like XML,JSON
+                  plain text,HTML,Image,,,etc.
+15. @Consumes --- here we are using other person services
+
+
