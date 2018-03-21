@@ -31,6 +31,23 @@ JAX-RS Annotations:--
 14. @Produces --- here we will give our service to other person to utilize 
               --- we can say this is a method level annotation , By using this annotation we can the get the output as you like XML,JSON
                   plain text,HTML,Image,,,etc.
+                  
+               Note:-- Whenever we send a HTTP GET Request to our Restful service,it will invokes particular method and produces the output
+                       in different formats.
+                       We will use @ Produces for GET Request only.
 15. @Consumes --- here we are using other person services
+                  Whenver we are consume other services,
+                  This is a class level and method level annotation
+                  It decide which MIME type is consumed by the particular method 
+                  i.e. Which format the method can accept the input from client
+                  
+                  
+                      Receive Request from client we are using Extract input parameters
+                      -------------------------
+ 1. @PathParam
+ 2. @QueryParam
+ 3. @FormParam
+ 4. @MatrixParam
+                  
 
 
