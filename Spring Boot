@@ -41,5 +41,12 @@ Spring Cloud Features:--
 7. Global locks
 8. Distributed messaging
 
-
+Netflix Oss:--
+-------------
+    Netflix Oss stands for Netflix Open Source Software developed by Netflix Team.
+ Circuit Breaker:-
+ -------------
+ Circuit Breaker is a Desing pattern,it is used to detect the failures and encapsulates the logic of preventing a failure
+ from constantaly recurring,during maintenance.
+    
       
