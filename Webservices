@@ -1,3 +1,15 @@
+Webservice:--
+------------
+-- Webservice is a way for two applications or two electronics to communicate over a network.
+-- It uses interoperable format to transfer the data between application.(interoperable means common language for all technologies
+   i.e XML/JSON)
+   
+WebService Types:--
+----------------
+1. SOAP(Simple Object Access Protocal)
+2. REST(Representational State Transfer)
+
+
 Restful webservices:--
 ------------------------
 Resource - What ever the data/response we will get from the server is knows as Resource.
