@@ -57,9 +57,14 @@ JAX-RS Annotations:--
                       Receive Request from client we are using Extract input parameters
                       -------------------------
  1. @PathParam
- 2. @QueryParam
+ 2. @QueryParam  --- If client sends an input in the form of Query String in the URL, then those parameters are called as
+                     QueryParam.
+                     ex: http://localhost:8080/Jaxrsannotaions/rest/car?carName=BMW here ? is the query param
+                     Suppose we have two parameters we can divide using & like this car?carName=BMW&car=1
  3. @FormParam
- 4. @MatrixParam
+ 4. @MatrixParam --- If client sends an input in the form of Matrix String in the URL, then those parameters are called as
+                     QueryParam.
+                      ex: http://localhost:8080/Jaxrsannotaions/rest/car;carName=BMW
                   
 
 
