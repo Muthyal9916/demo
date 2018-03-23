@@ -181,3 +181,75 @@ Immutable(int a){
 		return a;
 	}
 }
+
+
+Exceptions:--
+------------------
+Default excepiton:--    Inside a method if any excepiton occurs the method in which it is raised is responsible to create 
+exception object by including the following information.
+
+1. Name of exception
+2. Desciption of exception
+3. Location at which exception occurs(stack trace)
+                 
+After creating exception object method handovers that object to the JVM
+JVM will check wheather the method contains any excption handling code or not, if the method doesnt contain exception handling
+code then JVM terminates that method obnarmally and removes corresponding entry from the stack.
+Then JVM identifies caller() and checks wheather method contains any handling code or not. if the caller() doesnt conatin 
+handling code JVM terminates that caller method also abnoramlly and removes corresponding from the stack. this process will be 
+continued untill main method and if the main method also doesnt contain handling code then JVM terminates main method also.
+And removes corresponding entry from the stack. Then jvm handovers responsibilty of exception handling to default exception
+handler,which the part of JVM
+Default exception handler prints exception information in the following format and terminates program abnormally
+
+class not found exception:---
+--------------------------
+ClassNotFoundException is a run time exception which is thrown when an application tries to load a class at run time 
+using Class.forName() or loadClass() or findSystemClass() methods and the class with specified name are not found 
+in the classpath.
+
+public class MainClass
+{
+    public static void main(String[] args)
+    {
+        try
+        {
+            Class.forName("oracle.jdbc.driver.OracleDriver");
+        }
+        catch (ClassNotFoundException e)
+        {
+            e.printStackTrace();
+        }
+    }
+}
+
+NoClassDefFoundError:--
+-----------------------
+NoClassDefFoundError is an error which is thrown when Java Runtime System tries to load the definition of a class
+and class definition is no longer available. The required class definition was present at compile time but it was 
+missing at run time. For example, compile the below program.
+
+class A
+{
+ 
+}
+ 
+public class B
+{
+    public static void main(String[] args)
+    {
+        A a = new A();
+    }
+}
+
+Outofmemory:-----
+--------------------    The outofmemoryerror is thrown due to lack of available memory space.
+
+
+		 
+		 
+		 
+		 
+
+
+
