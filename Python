@@ -151,6 +151,30 @@ dict:-
 ---
 mutable
 
+Operators:--
+-------
+1. Arithmetic operator
+2. Assignment operator
+3. Bitwise operator
+4. Logical operator
+5. Special Operators
+6. Relational opertors
+
+1. Arithmetic operator
+-------------------------
++
+-
+/
+*
+%
+//   Floor Division operator The result of floor division operator is if both argument is int it will display int,if both
+     operator is float it will display float values
+**   Exponent operator or Power operator
+
+2. Relational operator:-
+--------------------
+
+
 
 
 
