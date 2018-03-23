@@ -244,6 +244,103 @@ public class B
 
 Outofmemory:-----
 --------------------    The outofmemoryerror is thrown due to lack of available memory space.
+Checked Exception:-- The Exceptions which are checked by the compiler is known as checked exception.
+                     ex:-- File not found
+Unchecked Exception:-- The Exceptions which are not checked by the compiler is known as Un checked exception.
+                     ex:-- Arithmetic exception
+		     
+Note: Wheather checked or unchecked exceptions occured at runtime only. There is no chance of occuring any exception at
+      compile time.
+      Runtimeexception and its child classes,error and its child classed are unchecked except these remaining are checked excep.
+      
+      
+Fully checked vs Partially checked:--
+-----------------------------
+A checked exception is said to be fully checked iff all its child classes also checked.
+exc:-- IOException
+       Inteerupted Exception
+A checked excepiont is said to be partially checked iff some of its child classes are un checked.
+Ex: Excepitons
+   Throwable
+Note:-- The only possible parially checked exceptions in java are 
+excepiton
+throwable 
+
+
+Note:-- If we have a return value in try with finally block , it will executed both but after returning finally block return
+       value will display.except system.exit(0);
+       
+     public class FinallyDemo {
+
+	public static void main(String[] args) {
+
+		FinallyDemo finallyDemo = new FinallyDemo();
+		boolean returnValue = finallyDemo.isHeOld(55);
+		System.out.println("Return Value :"+returnValue);
+	}
+
+	public boolean isHeOld(int age) {
+		
+		try {
+			if(age > 50) {
+				System.out.println("yes he is old.");
+				return true;
+//				System.exit(0);
+			}
+		}finally {
+			System.out.println("finally block is executed.");	
+		}
+		return false;
+	}
+}
+
+
+Exception:--
+ An exception is an event, which occurs during the execution of a program,it will distrub the normall flow of the program.
+       
+
+---------------------------------------------------------------------------------------- 
+
+ Method Overriding with Exception Handling
+ 
+ "Subclass overridden method cannot throw more checked exceptions than that of super class method".
+ 
+ 1. If super class method does not declare any exception, then sub class overriden method cannot declare checked exception
+ but it can declare unchecked excepitons.
+ 
+ public class SubClass extends SuperClass{
+	
+	public static void main(String[] args) {
+
+		SubClass sub = new SubClass();
+		sub.show();
+	}
+	public void show() throws IOException { // getting compiletime error
+	public void show() throws ArithmeticException {
+		System.out.println("Subclass");
+	}
+}
+
+2. If Super class method throws object of NullPointerException class, then Subclass method can either throw same exception,
+   or can throw no exception but it can never throw object of Exception class.
+
+public class SuperClass {
+
+	public void show() throws Exception {
+		System.out.println("Super class show()");
+	}
+}
+public class SubClass extends SuperClass{
+	public static void main(String[] args) {
+		SubClass sub = new SubClass();
+		sub.show();
+	}
+	public void show() throws ArithmeticException{
+		System.out.println("Subclass");
+	}
+}
+
+
 
 
 		 
