@@ -1,0 +1,17 @@
+Simple Network Management Protocal:- It is introduced in 1988,before that SGMP (Simple Gatway Management of Protocal)
+---------------------------------
+1. It is nothing but Manager-Agent Model
+2. It works Based on MIB(Management Information Base) -- This is nothing but set of commands
+3. If we want to communicate Manager-Agent Model we have to use MIB.
+4. If we want to see whether two systems having connectivity or not using Ping command in SNMP
+   Ping will send echo packets to those systems , if we will not receive echo response then it will say there is not connection
+   between the systems.
+5. Spiceworks,Zabbix,OpenNms are software in this software we have snmp for tracking the LAN information.
+6. Installing SNMP in that system we can call Manager remaining systems we can call Agents.
+7. We have two main features
+   1. getResponse
+   2. Traps
+8.    
+   
+
+   
