@@ -341,6 +341,21 @@ public class SubClass extends SuperClass{
 }
 
 
+Exception handling keywords in java:--
+-----------------------
+1. try -- To maintain risky code.
+2. catch -- To maintain Exception handling code.
+3. Finally -- To maintain cleanup code.
+4. throw -- To handover our customized exception object to the JVM manually.
+5. throws -- To delegate responsibilites of exception handling to thea caller.
+
+Various possible compiletime erros in exception handling:--
+--------------------
+1. Unreported exception
+2. Exception has already been caught
+3. Unreachable statement
+4. 
+
 
 
 		 
