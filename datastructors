@@ -11,3 +11,60 @@ Single linked list will always transfers in forward direction we cant come to th
 Single linked list node as the data and address of the next node
 these nodes are created runtime based one the requirement.
 
+
+Stack:--
+1. It is nothing but LIFO 
+2. It is Abstract data type
+3. We have 3 methods, like push,pop,peek,
+   push -- add
+   peek -- find
+   pop -- delete
+   
+ public class Runner {
+	public static void main(String[] args) {
+		Stack nums = new Stack();
+		nums.push(15);
+		nums.push(12);
+		System.out.println(nums.peek());
+		nums.push(8);
+		System.out.println(nums.pop());
+		nums.show();
+	}
+}
+
+public class Stack {
+
+	int stack[] = new int[5];
+	int top =0;
+	
+	public void  push(int data) {
+		stack[top] = data;
+		top++;
+	}
+	
+	public int pop() {
+		
+		int data;
+		top--;
+		data=stack[top];
+		stack[top]=0;
+		return data;
+	}
+	
+	public int peek() {
+		int data;
+		data = stack[top-1];
+		return data;
+	}
+	
+	public void show() {
+		
+		for(int n:stack) {
+			System.out.println(n + " ");
+		}
+	}
+}
+
+   
+
+
