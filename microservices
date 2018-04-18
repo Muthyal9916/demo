@@ -3,3 +3,8 @@ We can divide monolothic applications into small applications.
 Each application works as service,
 we can implement individually,independently.
 Finally we can user Rest Apis to communicate to each servcies.Usually Http
+
+Microservices architecture:- Every module is different independent deployable unit and connected each other by Rest Api.
+Benefits:-- 
+1. Each microservice is relatively small.
+2. 
