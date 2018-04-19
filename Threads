@@ -435,5 +435,17 @@ In the above example 3 threads are responsible to execute 6 jobs
 so that a single thread can be reused for multiple jobs.
 While designing webservers and appliction servers we can use thread pool concept.
 
+wait(),notify(),notifyall() are present in object class not in thread class, because thread can call theses methods on any
+java object.
+To call wait(),notify(),notifyall() methods on any object,thread should be owner of that object,i.e the thread should has
+lock of that object.i.e the thread should be inside synchronized area.
+Hence we can call wait(),notify(),notifyall() only from synchronized area otherwise we will get runtime exception,
+saying illegalmonitorstate exception.
+
+If a thread calls wait() method on any object,it immediately relaeses the lock of that particular object and entered into
+waiting state.
+
+
+
 
 
