@@ -482,6 +482,157 @@ saying illegalmonitorstate exception.
 If a thread calls wait() method on any object,it immediately relaeses the lock of that particular object and entered into
 waiting state.
 
+CountDownlatch:--
+CountDownlatch is advanced type of synchronization.
+Here all threads as to wait for complete their tasks.
+For example 
+ where a Organziation needs to recruite 3 Java Developers.
+ For this HR Manager has asked 3 Tech Leads to take interview.
+ The HR Manager wants to distribute the Offer letter only after all the 3 Java Developers have been recruited
+ In Threading terminology the HR Manger should wait till 3 Java Developers have been recruited.
+
+1.
+ import java.util.concurrent.CountDownLatch;
+public class TechLead extends Thread{
+
+ CountDownLatch countDownLatch;
+ public TechLead(CountDownLatch countDownLatch,String name){
+  super(name);
+  this.countDownLatch=countDownLatch;
+  
+ }
+ 
+ @Override
+ public void run() {
+  try {
+   
+   Thread.sleep(2000);
+  } catch (InterruptedException e) {
+   // TODO Auto-generated catch block
+   e.printStackTrace();
+  }
+  // TODO Auto-generated method stub
+  System.out.println(Thread.currentThread().getName()+" : recruted");
+  
+  countDownLatch.countDown();
+ }
+
+}
+
+import java.util.concurrent.CountDownLatch;
+
+
+public class HRManager {
+ 
+ public static void main(String args[]){
+  CountDownLatch countDownLatch = new CountDownLatch(3);
+  
+  TechLead techLead1 = new TechLead(countDownLatch,"first");
+  TechLead techLead2 = new TechLead(countDownLatch,"second");
+  TechLead techLead3 = new TechLead(countDownLatch,"third");
+  
+  
+  techLead1.start();
+  techLead2.start();
+  techLead3.start();
+  
+  try {
+   System.out.println("HR Manager waiting for recruitment to complete...");
+   
+   countDownLatch.await();
+   
+   System.out.println("Distribute Offer Letter");
+  } catch (InterruptedException e) {
+   e.printStackTrace();
+  }
+ }
+}
+
+2.
+package prac;
+
+import java.util.concurrent.CountDownLatch;
+
+public class DevTeam extends Thread{
+
+	private CountDownLatch countDownLatch;
+	
+	public DevTeam(CountDownLatch countDownLatch,String name) {
+		super(name);
+		this.countDownLatch = countDownLatch;
+	}
+	
+	@Override
+	public void run() {
+		
+		System.out.println("Task assigned to development team "+Thread.currentThread().getName());
+		
+		try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		
+		System.out.println("Task finished by development team "+Thread.currentThread().getName());
+		
+		// Each thread calls countDown() method on task completion.
+		countDownLatch.countDown();
+	}
+	
+}
+package prac;
+
+import java.util.concurrent.CountDownLatch;
+
+public class AssignTaskManagerTest {
+
+	public static void main(String[] args) throws InterruptedException {
+
+		//created countdownlatch for 2 threads
+		CountDownLatch latch = new CountDownLatch(2);
+		
+		//created and started two threads
+		DevTeam teamA = new DevTeam(latch, "dev-A");
+		DevTeam teamB = new DevTeam(latch, "dev-B");
+		
+		teamA.start();
+		teamB.start();
+		
+		//when two threads(dev-A and dev-B)completed tasks are returned
+		latch.await();
+		
+		//Now execution of thread(QA team) started.
+		QATeam qateam = new QATeam("QA Team");
+		qateam.start();
+		
+		
+	}
+
+}
+package prac;
+
+public class QATeam extends Thread{
+	
+	public QATeam(String name) {
+		super(name);
+	}
+	
+	@Override
+	public void run() {
+		
+		System.out.println("Task assigned to "+Thread.currentThread().getName());
+		
+		try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		
+		System.out.println("Task finished by "+Thread.currentThread().getName());
+	}
+
+}
+
 
 
 
