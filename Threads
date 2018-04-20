@@ -485,6 +485,7 @@ waiting state.
 CountDownlatch:--
 CountDownlatch is advanced type of synchronization.
 Here all threads as to wait for complete their tasks.
+Once latch count is zero,we cant reuse the countdownlatch.
 For example 
  where a Organziation needs to recruite 3 Java Developers.
  For this HR Manager has asked 3 Tech Leads to take interview.
