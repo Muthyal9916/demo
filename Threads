@@ -720,5 +720,122 @@ public class BarrierTest {
 }
 
 
+Producer and Cousumer threads(Inter thread Communication):-
+----
+package prac;
+
+import java.util.List;
+
+public class Producer extends Thread {
+
+	
+	List<Integer> list;
+	
+	public Producer(List<Integer> list) {
+		this.list = list ;
+	}
+	
+	@Override
+	public void run() {
+
+		try {
+			synchronized (list) {
+				while (true) {
+					if (list.size() > 0)
+						list.wait();
+					else
+						produceItem();
+				}
+			}
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+			
+	private void produceItem() throws InterruptedException {
+		
+		for(int i=1; i<=5; i++) {
+			
+			Thread.sleep(2000);
+			
+			list.add(i);
+			
+			System.out.println("Added element in list by producer =" + i);
+		}
+		
+		list.notifyAll();
+	}
+}
+
+2.
+package prac;
+
+import java.util.List;
+
+public class Consumer extends Thread{
+
+	
+	List<Integer> list;
+	
+	public Consumer(List<Integer> list) {
+		this.list = list;
+	}
+	
+	@Override
+	public void run() {
+
+		try {
+			while (true) {
+				synchronized (list) {
+
+					if (list.size() == 0)
+						list.wait();
+					else
+
+						consume();
+				}
+			}
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+		
+	
+	
+	private void consume() throws InterruptedException {
+		while(!list.isEmpty()) {
+			Thread.sleep(2000);
+			System.out.println("Removed element from list by consumer = "+list.remove(0));
+		}
+		list.notifyAll();
+	}
+	
+	
+	
+}
+3.
+package prac;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class ProducerConsumerDemo {
+
+	public static void main(String[] args) {
+
+		
+		List<Integer> list = new ArrayList<>();
+		
+		Producer producer = new Producer(list);
+		Consumer consumer = new Consumer(list);
+		
+		producer.start();
+		consumer.start();
+	}
+
+}
+
 
 
