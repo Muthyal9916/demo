@@ -634,6 +634,90 @@ public class QATeam extends Thread{
 
 }
 
+CyclicBarrier:--
+Number of threads want to communicate with each other and want to wait common point.
+If barrier count zero, it will reusable the barrier.
+1.
+package prac;
+
+import java.util.concurrent.BrokenBarrierException;
+import java.util.concurrent.CyclicBarrier;
+
+public class PassengerThread extends Thread{
+
+	private int duration;
+	private CyclicBarrier cyclicBarrier;
+	
+	public PassengerThread(int duration,CyclicBarrier cyclicBarrier,String name) {
+		super(name);
+		this.duration=duration;
+		this.cyclicBarrier=cyclicBarrier;
+	}
+	
+	
+	@Override
+	public void run() {
+		
+		try {
+			Thread.sleep(2000);
+			
+			System.out.println(Thread.currentThread().getName() + " is arrived.");
+			try {
+				int await = cyclicBarrier.await(); // here all threads reaches barrier if barrier count zero it will goes to execute.
+				if(await == 0) {
+					System.out.println("Four passengers have arrived so cab is going to start.");
+					
+				}
+			} catch (BrokenBarrierException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+}
+
+2. 
+package prac;
+
+import java.util.concurrent.CyclicBarrier;
+
+public class BarrierTest {
+
+	public static void main(String[] args) {
+
+		
+		System.out.println(Thread.currentThread().getName() + " has started");
+		
+		CyclicBarrier barrier = new CyclicBarrier(4);
+		
+		PassengerThread p1 = new PassengerThread(1000, barrier, "a");
+		PassengerThread p2 = new PassengerThread(2000, barrier, "b");
+		PassengerThread p3 = new PassengerThread(3000, barrier, "c");
+		PassengerThread p4 = new PassengerThread(4000, barrier, "d");
+		
+		
+		PassengerThread p5 = new PassengerThread(1000, barrier, "one");
+		PassengerThread p6 = new PassengerThread(2000, barrier, "two");
+		PassengerThread p7 = new PassengerThread(3000, barrier, "three");
+		PassengerThread p8 = new PassengerThread(4000, barrier, "four");
+		
+		p1.start();
+		p2.start();
+		p3.start();
+		p4.start();
+		
+		
+		p5.start();
+		p6.start();
+		p7.start();
+		p8.start();
+		
+		System.out.println(Thread.currentThread().getName() + " has finished");
+	}
+
+}
 
 
 
