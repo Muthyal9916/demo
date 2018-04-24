@@ -49,8 +49,8 @@ Netflix Oss:--
  Circuit Breaker is a Desing pattern,it is used to detect the failures and encapsulates the logic of preventing a failure
  from constantaly recurring,during maintenance.
 
-Zuul:--
-
+Zuul:-- 
+Add Zuul and eureka discovery
 server:
   port: 6066
 
