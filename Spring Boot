@@ -49,6 +49,48 @@ Netflix Oss:--
  Circuit Breaker is a Desing pattern,it is used to detect the failures and encapsulates the logic of preventing a failure
  from constantaly recurring,during maintenance.
 
+
+   1. spring boot application class
+   @EnableZuulProxy
+@SpringBootApplication
+@EnableDiscoveryClient
+public class ZuulApiGateWayApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(ZuulApiGateWayApplication.class, args);
+	}
+
+}
+
+2.pom.xml
+
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-netflix-zuul</artifactId>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+3. application.yml
+
 Zuul:-- 
 Add Zuul and eureka discovery
 server:
@@ -81,9 +123,6 @@ zuul:
  host:  
    socket-timeout-millis: 600000
   
-
-   
-  
 eureka: 
   instance: 
     preferIpAddress:  true
@@ -92,9 +131,5 @@ eureka:
       fetchRegistry:  true
       service-url:
               defaultzone:  http://localhost:8761/eureka/  
-
-   
-
-
     
       
