@@ -48,5 +48,53 @@ Netflix Oss:--
  -------------
  Circuit Breaker is a Desing pattern,it is used to detect the failures and encapsulates the logic of preventing a failure
  from constantaly recurring,during maintenance.
+
+Zuul:--
+
+server:
+  port: 6066
+
+
+spring: 
+    application: 
+     name: zuuldemo  
+
+zuul: 
+ routes: 
+  std: 
+    url: http://localhost:6067
+  links: 
+   path: /dynamicips/**
+   url: http://localhost:8088/
+   strip-prefix:  false
+  get: 
+   path: /hi/**
+   url: http://localhost:8088/
+   strip-prefix:  false
+  link1: 
+   path: /fetchingdevices/**
+   url: http://localhost:8088/
+   strip-prefix:  false
+  lect: 
+   url: http://localhost:6068
+   strip-prefix:  false
+ host:  
+   socket-timeout-millis: 600000
+  
+
+   
+  
+eureka: 
+  instance: 
+    preferIpAddress:  true
+  client: 
+      registerWithEureka: true
+      fetchRegistry:  true
+      service-url:
+              defaultzone:  http://localhost:8761/eureka/  
+
+   
+
+
     
       
