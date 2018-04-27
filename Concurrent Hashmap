@@ -38,3 +38,22 @@ public class ConcurrentHashmapDemo extends Thread{
 		System.out.println(map);
 	}
 }
+
+
+
+Hashmap:--
+Hashmap implements map interface
+Hashmap elements internally stores array of buckets this buckets size is 16
+in array each index is node means linkedlist
+
+
+
+
+
+
+
+
+
+
+
+
