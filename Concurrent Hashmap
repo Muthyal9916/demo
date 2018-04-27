@@ -46,6 +46,58 @@ Hashmap implements map interface
 It will works on hashing principle
 Hashmap elements internally stores array of buckets this buckets size is 16
 in array each index is node means linkedlist
+Hashmap is not synchronized.
+Hashmap default capacity is 16
+Hashmap can store one null key and more than one null values
+If key is null it will stored in 0th position
+If key is not null it will call the hash(key) function and get the hashcode value.
+Pass the hashcode to the index() and get the index value.
+If two keys having same hashcode it will create the linked list in the same bucket.
+When two or more keys having same hashcode Collision will happen.
+
+
+package prac;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
+
+public class HashmapDemo {
+
+	public static void main(String[] args) {
+
+		
+		Map<Integer,String>  hashmap = new HashMap<>();
+			hashmap.put(1,"A");
+			hashmap.put(2,"C");
+			hashmap.put(4,"E");
+			hashmap.put(5,"D");
+			hashmap.put(6,"B");
+			hashmap.put(7," ");
+			hashmap.put(null,"one");
+			hashmap.put(null,"two");
+			hashmap.put(8,null);
+			hashmap.put(9,null);
+			
+			hashmap.forEach((k,v)->System.out.println(k+" "+v));
+			
+//		
+//		Set<Integer> keys = hashmap.keySet();
+//		for(Integer i:keys) {
+//			System.out.println(i + " : " + hashmap.get(i));
+//		}
+//		
+//		Set<Map.Entry<Integer, String>> values = hashmap.entrySet();
+//		
+//		for(Map.Entry<Integer, String> e : values) {
+//			
+//			System.out.println(e.getKey() + " : " + e.getValue());
+//		}
+	}
+
+}
+
+
 
 
 
