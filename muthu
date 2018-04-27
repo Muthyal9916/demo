@@ -225,5 +225,68 @@ public class Address {
 	private List<Employee> employeeList = new ArrayList<>();
 }
 
+
+Nativesql:--
+To execute sql commands directly on a database using SqlQuery interface.
+
+examples:
+package com.client;
+
+import java.util.Iterator;
+import java.util.List;
+
+import org.hibernate.HibernateException;
+import org.hibernate.SQLQuery;
+import org.hibernate.Session;
+
+import com.entites.Employee;
+import com.util.HibernateUtil;
+
+public class ClientTest {
+
+	public static void main(String[] args) {
+		try(Session session = HibernateUtil.getSessionFactory().openSession()) {
+			
+			session.beginTransaction();
+			
+			/*Employee emp = new Employee();
+			emp.setEname("Raju");
+			emp.setSalary(40000);
+			session.persist(emp);*/
+			
+			
+			//fetching data
+			
+			/*String query ="select * from employee";
+			SQLQuery sqlquery = session.createSQLQuery(query);
+			sqlquery.addEntity(Employee.class);
+			List list = sqlquery.list();
+			
+			Iterator it = list.iterator();
+			while(it.hasNext()) {
+				Employee emp =  (Employee) it.next();
+				System.out.println(emp.getEmpId()+" "+emp.getEname()+" "+emp.getSalary());
+			}*/
+			
+			//update to employee table
+			
+			String query = "update employee set ename=:ename,salary=:salary where empId=:empId";
+			SQLQuery sqlquery = session.createSQLQuery(query);
+			sqlquery.setParameter("empId",1);
+			sqlquery.setParameter("ename","Raju");
+			sqlquery.setParameter("salary",15000.00);
+			sqlquery.executeUpdate();
+			System.out.println("Successfully updated.");
+			session.getTransaction().commit();
+			
+		
+		}catch (HibernateException e) {
+			e.printStackTrace();
+		}
+	
+	}
+	
+}
+
 		
     
