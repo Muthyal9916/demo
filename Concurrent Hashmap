@@ -43,6 +43,7 @@ public class ConcurrentHashmapDemo extends Thread{
 
 Hashmap:--
 Hashmap implements map interface
+It will works on hashing principle
 Hashmap elements internally stores array of buckets this buckets size is 16
 in array each index is node means linkedlist
 
