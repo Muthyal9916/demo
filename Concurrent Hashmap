@@ -1,3 +1,11 @@
+ConcurrentHashmap:--
+Underlying datastructure is HashTable.
+To perform read operations thread won't require any lock, but to perform update operations thread require lock but it is the lock of only a
+particular part of Map(Bucket level lock).
+ConcurrentHashmap to perform simuntaneously read and write(update) operations.
+Null is not allowed for both keys and values.
+While one thread iterating the other thread can perform update operation. 
+
 package prac;
 
 import java.util.Iterator;
