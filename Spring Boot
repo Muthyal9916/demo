@@ -132,4 +132,205 @@ eureka:
       service-url:
               defaultzone:  http://localhost:8761/eureka/  
     
+      Spring boot H2 database:--
+      ----------------------
+1. application.properties:
+    
+spring.h2.console.enabled=true
+server.port=8086
+spring.h2.console.path=/h2
+
+spring.jpa.database-platform=org.hibernate.dialect.H2Dialect
+spring.datasource.url=jdbc:h2:~/testdb;DB_CLOSE_ON_EXIT=FALSE
+spring.datasource.username=sa
+spring.datasource.password=admin
+spring.datasource.driver-class-name=org.h2.Driver
+spring.jpa.hibernate.ddl-auto=update
+spring.datasource.platform=h2
+    
+2. pom.xml
+
+<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.apache.tomcat.embed</groupId>
+			<artifactId>tomcat-embed-jasper</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
+		</dependency>
+	</dependencies>
       
+3. controller
+
+package com.example.demo;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.example.demo.entites.Employee;
+import com.example.demo.service.EmployeeService;
+
+@RestController
+public class DemoController {
+
+	@Autowired
+	private JdbcTemplate jdbcTemplate;
+	
+	@Autowired
+	private EmployeeService employeeService;
+	
+	@RequestMapping(value="/createTable",method=RequestMethod.GET)
+	public void createTable(){
+		
+		try{
+			jdbcTemplate.execute("create table customers(id number(10),name varchar2(255),age varchar2(22))");
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+	
+	@RequestMapping(value="/putData",method=RequestMethod.GET)
+	public void putData(){
+		
+		try{
+			jdbcTemplate.execute("insert into customers(id,name,age) values(2,'raju',35)");
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+	
+	@RequestMapping(value="/employee",method=RequestMethod.GET)
+	public ResponseEntity<List<Employee>> employees(){
+		List<Employee> employees = employeeService.getEmployees();
+		return new ResponseEntity<>(employees,HttpStatus.OK);
+	}
+}
+
+4. entites
+package com.example.demo.entites;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
+public class Employee {
+
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private long id;
+	private String name;
+	
+	
+	public long getId() {
+		return id;
+	}
+	public void setId(long id) {
+		this.id = id;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	
+}
+
+5. repository
+
+package com.example.demo.repository;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.example.demo.entites.Employee;
+
+
+public interface EmployeeRepository extends JpaRepository<Employee,Long>{
+
+}
+
+6. employee service
+package com.example.demo.service;
+
+import java.util.List;
+
+import com.example.demo.entites.Employee;
+
+public interface EmployeeService {
+
+	public List<Employee> getEmployees();
+}
+
+7. employee service impl
+package com.example.demo.impl;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.example.demo.entites.Employee;
+import com.example.demo.repository.EmployeeRepository;
+import com.example.demo.service.EmployeeService;
+
+@Service
+public class EmployeeServiceImpl implements EmployeeService{
+
+	@Autowired
+	private EmployeeRepository employeeRepository;
+	
+	@Override
+	public List<Employee> getEmployees() {
+		return employeeRepository.findAll();
+	}
+
+}
+8. bootapplication
+package com.example.demo;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+
+@SpringBootApplication
+@EnableJpaRepositories
+public class SpringbootJpaApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(SpringbootJpaApplication.class, args);
+	}
+}
