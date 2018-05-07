@@ -1,0 +1,10 @@
+Development Environment
+
+Node
+NPM
+Angular CLI
+Text Editor - Vs Code
+
+ng new Hello-World
+cd Hello-World
+ng serve
