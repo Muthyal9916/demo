@@ -8,3 +8,8 @@ Text Editor - Vs Code
 ng new Hello-World
 cd Hello-World
 ng serve
+
+Component:-- This Contains 3 types
+1. Template this contains view,html
+2. Class this contains code,typescript,data&methods to controll the template
+3. Metadata : this contains information decorator 
