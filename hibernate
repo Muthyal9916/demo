@@ -18,6 +18,7 @@ Employee employee = session.get(Employee.class, 2);
 		}else {
 			System.out.println("Employee dosen't exist with provided id,,,.");
 		}
+		
 difference between session.load() adn session.get():--
 ----------------------------------------------------------
 
@@ -35,29 +36,28 @@ hbm2ddl properties:--
 --> In case of create-drop schema is not dropped on closing the session. It drops only on closing the sessionFactory.
 
 generate primarykeys in hibernate:--
-
 ---> There are 4 primarykeys are generated
+
 1. GenerationType.AUTO
 2. GenerationType.IDENTITY
 3. GenerationType.SEQUENCE
 4. GenerationType.TABLE 
 
- GenerationType.AUTO in hibernate 5 one extra table is created in that table only one column name NEXT_VAL, in this column next generation 
-             value is there.
+GenerationType.AUTO in hibernate 5 one extra table is created in that table only one column name NEXT_VAL,
+in this column next generation value is there.
 
 Code Systax;
 @GeneratedValue(strategy=GenerationType.AUTO,generator="empid_generator")
-	@SequenceGenerator(name="empid_generator",initialValue=1,allocationSize=1,sequenceName="empid_seq")
+@SequenceGenerator(name="empid_generator",initialValue=1,allocationSize=1,sequenceName="empid_seq")
 
 GenerationType.IDENTITY it simply generate the primay key in sequence
 GenerationType.SEQUENCE 
 
-
 ValueTypes and Embedding Objects in Hibernate;
 ==================================================
 @Embeddable:-- While using this annotation in Association it means we have Employee and Address beans
-                Here Employee entity class Addressbean is using and setting as @Embeddable
-                it means no need to create seperate table for address bean,simply show the address values in employee table only
+               Here Employee entity class Addressbean is using and setting as @Embeddable
+               it means no need to create seperate table for address bean,simply show the address values in employee table only
                for this purpose we are using Embeddable.
 
 example:-- 
@@ -79,32 +79,30 @@ AttributeOverrides and Embedding Objects in Hibernate;
 ==============================================
 @AttributeOverrides:-- Using this annotation with overriding the existing colums and values.
 
-Example: Suppose we have Employee entity with two Addresses in this case without overriding the properties we are using this annotation
-
-  
+Example: Suppose we have Employee entity with two Addresses in this case without overriding the properties 
+         we are using this annotation
 @Entity
 @Table(name="employeeAdd_table")
 public class Employee {
         @Embedded
 	@AttributeOverrides(value= {
-			
 			@AttributeOverride(column = @Column(name="home_street_name"),name="street"),
 			@AttributeOverride(column = @Column(name="home_city_name"),name="city"),
 			@AttributeOverride(column = @Column(name="home_state_name"),name="state"),
-			@AttributeOverride(column = @Column(name="home_pin_code"),name="pincode")
-			
+         		@AttributeOverride(column = @Column(name="home_pin_code"),name="pincode")
+		
 	})
 	private Address homeaddress;//here this is the value object
       
         @Embedded
 	@AttributeOverrides(value= {
-			
 			@AttributeOverride(column = @Column(name="office_street_name"),name="street"),
 			@AttributeOverride(column = @Column(name="office_city_name"),name="city"),
 			@AttributeOverride(column = @Column(name="office_state_name"),name="state"),
 			@AttributeOverride(column = @Column(name="office_pin_code"),name="pincode")
 			
 	})
+	
        private Address officeaddress;
 }
 
@@ -294,9 +292,7 @@ Bean class:
 package com.entites;
 
 public class Employee {
-
-
-	private int empId;
+        private int empId;
 	private String ename;
 	private double salary;
 	
@@ -330,21 +326,16 @@ package com.client;
 
 import java.util.Iterator;
 import java.util.List;
-
 import org.hibernate.HibernateException;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
-
 import com.entites.Employee;
 import com.util.HibernateUtil;
 
 public class ClientTest {
-
 	public static void main(String[] args) {
 		try(Session session = HibernateUtil.getSessionFactory().openSession()) {
-			
 			session.beginTransaction();
-			
 			Employee emp = new Employee();
 			emp.setEname("Raju");
 			emp.setSalary(40000);
@@ -379,10 +370,9 @@ public class ClientTest {
 		}catch (HibernateException e) {
 			e.printStackTrace();
 		}
-	
 	}
-	
 }
+
 3. mapping file
 <?xml version="1.0" encoding="UTF-8"?>
 <hibernate-mapping>
@@ -477,7 +467,6 @@ public class Employee {
 package onetoone.entites;
 
 public class EmployeeDetail {
-	
 	private int employeeId;
 	private String city;
 	private Employee employee;
@@ -549,29 +538,23 @@ public class EmployeeDetail {
 
 <mapping resource="onetoone/employee.hbm.xml"/>
 <mapping resource="onetoone/employeedetail.hbm.xml"/>
-
 	</session-factory>
 </hibernate-configuration>
+
 6. Main class
 package onetoone.client;
 
 import java.util.Iterator;
 import java.util.List;
-
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
-
 import com.util.HibernateUtil;
-
 import onetoone.entites.Employee;
 import onetoone.entites.EmployeeDetail;
 
 public class ClientTest {
-
 	public static void main(String[] args) {
-		
 		try(Session session = HibernateUtil.getSessionFactory().openSession()) {
-			
 			session.beginTransaction();
 			Employee emp = new Employee();
 			emp.setEmployeeId(101);
@@ -579,19 +562,18 @@ public class ClientTest {
 			
 			EmployeeDetail empde = new EmployeeDetail();
 			empde.setCity("Bangalore");
-			
 			empde.setEmployee(emp);
 			emp.setEmployeeDetail(empde);
+			
 			session.save(emp);
 			session.getTransaction().commit();
-			
-		
-		}catch (HibernateException e) {
+		  }catch (HibernateException e) {
 			e.printStackTrace();
 		}
 	}
 }
----------------------------onetomany-----------------------------------
+
+		---------------------------onetomany-----------------------------------
 
 
 
