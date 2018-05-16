@@ -334,3 +334,52 @@ public class SpringbootJpaApplication {
 		SpringApplication.run(SpringbootJpaApplication.class, args);
 	}
 }
+
+Spring boot task scheduler example:--
+1. Spring Boot provides a simple and easy way to develop and run a Task scheduler without using any xml and bean configurations.
+2. Simply add the annotation @Scheduled on the task scheduler method with required interval time.
+
+fixedDelay: Run tasks with a fixed delay(in example it’s 5 seconds) between last task end time and next task start time. 
+            For example, if task starts at 11:00:00 and it takes 3 seconds to execute next task starts at 11:00:08.
+fixedRate:  Run tasks with a fixed rate of given time. For example in above example
+	    fixedRateTask() is called every 6 seconds. (ie: 11:00:00, 11:00:06, 11:00:12, …)
+initialDelay: This can be used with above examples. This property sets delay for first time run. 
+              For example, if program starts at 11:00:00 fixedRateWithInitialDelayTask() will run at 11:00:02, 11:00:09, 11:00:16, …
+cron:       This can be any cron expression.
+1. Controller class
+@Scheduled(fixedRate = 6000)
+	public void performTask() {
+		System.out.println("fixed task performed at "+ dateFormat.format(new Date()));
+	}
+
+	@Scheduled(fixedDelay = 5000)
+	 public void fixedDelayTask() {
+	 System.out.println(new Date() + " This runs in a fixed delay");
+	 }
+
+	
+	@Scheduled(initialDelay = 1000, fixedRate = 10000)
+	public void performDelayedTask() {
+		System.out.println("Delayed Regular task performed at "+ dateFormat.format(new Date()));
+	}
+
+	@Scheduled(cron = "*/5 * * * * *")
+	public void performTaskUsingCron() {
+		System.out.println("Regular task performed using Cron at "+ dateFormat.format(new Date()));
+	}
+	
+	@Scheduled(cron = "10 * * * * *")
+	 public void cronTask(){
+	 System.out.println(new Date() + " This runs in a cron schedule");
+	 }
+2. 
+@SpringBootApplication
+@EnableScheduling
+public class H2dbApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(H2dbApplication.class, args);
+	}
+}
+	 
+
