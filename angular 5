@@ -1,7 +1,7 @@
 Development Environment
 
 Node
-NPM
+NPM (Node Package Manager)
 Angular CLI
 Text Editor - Vs Code
 
@@ -13,3 +13,20 @@ Component:-- This Contains 3 types
 1. Template this contains view,html
 2. Class this contains code,typescript,data&methods to controll the template
 3. Metadata : this contains information decorator 
+
+why angular 2:
+1. Better Performance
+2. Supports mobile applications.
+3. Provides new web terminologies.
+4. Easy to implement
+5. Improved dependency injection.
+6. Flexible routing.
+
+Building blocks:
+1. Component
+2. Modules
+3. Templates
+4. Metadata
+5. Services
+
+
