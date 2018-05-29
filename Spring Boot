@@ -382,4 +382,33 @@ public class H2dbApplication {
 	}
 }
 	 
+-----------------Spring boot RestfulApi Documentation with Swagger ---------------------------
+1. Documentation of REST services is very important to develop.
+2. This documentation should help consumers of the service to know which all services are available.
+
+Swagger :--
+1. Swagger is widely used for visualizing APIS
+2. Swagger UI it provides online sandbox for frontend developers
+3. Swagger is a tool, a specification and a complete framework implemention for producing the visual representation of 
+   Restful webservices.
+   
+   
+   
+http://localhost:8080/v2/api-docs
+http://localhost:8080/swagger-ui.html
+
+------------ Spring boot security OAuth2 ----------------
+1. OAuth(Open Authentication) is a  simple way to publish and interact with protected data.
+2. It is an token-based authentication and autherization on the internet.
+3. It allows an end-user's account information to be used by third-party services. such as facebook with out 
+   exposing the user's password.
+The OAuth specification describes five grants for acquiring an access token.
+1. Authorization code grant
+2. Implicit grant
+3. Resource owner credentials grant
+4. Client credentials grant
+5. Refresh token grant
+
+
+
 
