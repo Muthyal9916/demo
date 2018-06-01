@@ -410,5 +410,303 @@ The OAuth specification describes five grants for acquiring an access token.
 5. Refresh token grant
 
 
+1. In memory authentication.
+pom.xml
+---------------------
+<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+
+<!-- 		<dependency> -->
+<!-- 			<groupId>org.apache.derby</groupId> -->
+<!-- 			<artifactId>derby</artifactId> -->
+<!-- 			<scope>runtime</scope> -->
+<!-- 		</dependency> -->
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+<!-- 		<dependency> -->
+<!-- 			<groupId>org.hsqldb</groupId> -->
+<!-- 			<artifactId>hsqldb</artifactId> -->
+<!-- 			<scope>runtime</scope> -->
+<!-- 		</dependency> -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+		
+	</dependencies>
+
+------------------
+application.properties
+server.port=6050
+
+spring.datasource.url=jdbc:mysql://localhost:3306/hibdb
+spring.datasource.username=root
+spring.datasource.password=Muthu
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQLDialect
+spring.jpa.show-sql=true
+security.user.name=admin
+security.user.password=pass
+---------------
+bean
+@Entity
+@Table(name="ticket")
+public class Ticket {
+
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(name="ticket_id")
+	private Integer ticketId;
+	
+	
+	@Column(name="passenger_name",nullable=false)
+	private String passengerName;
+	
+	
+	@Column(name="booking_date")
+	private Date bookingDate;
+	
+	
+	@Column(name="source_station")
+	private String sourceStation;
+	
+	
+	@Column(name="dest_station")
+	private String destination;
+	
+	@Column(name="email")
+	private String email;
+
+	public Integer getTicketId() {
+		return ticketId;
+	}
+
+	public void setTicketId(Integer ticketId) {
+		this.ticketId = ticketId;
+	}
+
+	public String getPassengerName() {
+		return passengerName;
+	}
+
+	public void setPassengerName(String passengerName) {
+		this.passengerName = passengerName;
+	}
+
+	public Date getBookingDate() {
+		return bookingDate;
+	}
+
+	public void setBookingDate(Date bookingDate) {
+		this.bookingDate = bookingDate;
+	}
+
+	public String getSourceStation() {
+		return sourceStation;
+	}
+
+	public void setSourceStation(String sourceStation) {
+		this.sourceStation = sourceStation;
+	}
+
+	public String getDestination() {
+		return destination;
+	}
+
+	public void setDestination(String destination) {
+		this.destination = destination;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	@Override
+	public String toString() {
+		return "Ticket [ticketId=" + ticketId + ", passengerName=" + passengerName + ", bookingDate=" + bookingDate
+				+ ", sourceStation=" + sourceStation + ", destination=" + destination + ", email=" + email + "]";
+	}
+	
+}
+--------------
+service
+
+@Service
+public class TicketBookingService {
+	
+	@Autowired
+	public TicketBookingDao ticketBookingDao;
+
+	public Ticket createTicket(Ticket ticket) {
+		return ticketBookingDao.save(ticket);
+	}
+
+	
+	public Ticket getTicketById(Integer ticketId) {
+		return ticketBookingDao.findOne(ticketId);
+	}
+
+
+	public Iterable<Ticket> getAllBookedTickets() {
+		return ticketBookingDao.findAll();
+	}
+
+
+	public void deleteTicket(Integer ticketId) {
+		ticketBookingDao.delete(ticketId);
+	}
+
+	public Ticket updateTicket(Integer ticketId, String email) {
+		Ticket ticketfromDB = ticketBookingDao.findOne(ticketId);
+		ticketfromDB.setEmail(email);
+		Ticket updatedTicket = ticketBookingDao.save(ticketfromDB);
+		return updatedTicket;
+	}
+	
+	
+
+}
+-------------------------
+dao
+@Repository
+public interface TicketBookingDao extends CrudRepository<Ticket, Integer>{
+}
+----------------
+controller
+@RestController
+@RequestMapping(value="/api/")
+public class TicketBookingController {
+
+	@Autowired
+	public TicketBookingService ticketBookingService;
+	
+	
+	@PostMapping(value="/create")
+	public Ticket createTicket(@RequestBody Ticket ticket) {
+		return ticketBookingService.createTicket(ticket);
+	}
+	
+	@GetMapping(value="/tickets/{ticketId}")
+	public Ticket getTicketById(@PathVariable("ticketId") Integer ticketId) {
+		return ticketBookingService.getTicketById(ticketId);
+	}
+	
+	@GetMapping(value="/admin/ticket/alltickets")
+	public Iterable<Ticket> getAllBookedTickets() {
+		return ticketBookingService.getAllBookedTickets();
+	}
+	@DeleteMapping(value="/ticket/{ticketId}")
+	public void deleteTicket(@PathVariable("ticketId") Integer ticketId) {
+		ticketBookingService.deleteTicket(ticketId);
+	}
+	
+	
+	@RequestMapping(value="/ticket/{ticketId}/{newEmail:.+}")
+	public Ticket updateTicket(@PathVariable("ticketId") Integer ticketId,@PathVariable("newEmail") String email) {
+		return ticketBookingService.updateTicket(ticketId,email);
+	}
+}
+------------------
+config
+@EnableWebSecurity
+public class SecurityConfig extends WebSecurityConfigurerAdapter{
+
+	@Override
+	protected void configure(HttpSecurity http) throws Exception {
+		
+		http.csrf()
+		    .disable()
+		    .authorizeRequests()
+		    .antMatchers("/api/tickets/**")
+		    .hasAnyRole("admin","user")
+		    .and()
+		    .formLogin();
+		
+
+		http.csrf()
+		    .disable()
+		    .authorizeRequests()
+		    .antMatchers("/api/admin/**")
+		    .hasAnyRole("admin")
+		    .and()
+		    .formLogin();
+	}
+	
+	
+	@Autowired
+	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+	
+		auth.inMemoryAuthentication().withUser("muthu").password("pass@123").roles("user");
+		auth.inMemoryAuthentication().withUser("dakshith").password("pass@123").roles("user","admin");
+		
+	}
+	
+}
+----------------
+main
+@SpringBootApplication
+public class TicketBookingManagementAppApplication{
+	
+//	implements CommandLineRunner{
+//	
+//	@Autowired
+//	public TicketBookingService ticketBookingService;
+//	
+//	@Autowired
+//	private DataSource dataSource;
+
+	public static void main(String[] args) {
+		
+    SpringApplication.run(TicketBookingManagementAppApplication.class, args);
+		
+	}
+
+//	@Override
+//	public void run(String... arg0) throws Exception {
+//		
+//		Ticket ticket = new Ticket();
+//		ticket.setBookingDate(new Date());
+//		ticket.setDestination("Marathalli");
+//		ticket.setSourceStation("Pune");
+//		ticket.setPassengerName("Muthu");
+//		ticket.setEmail("muthu@gmail.com");
+//		ticketBookingService.createTicket(ticket);
+//		
+//		System.out.println("DataSource "+dataSource);
+//		
+//		
+//	}
+}
+--------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
 
 
