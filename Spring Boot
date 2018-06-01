@@ -403,11 +403,12 @@ http://localhost:8080/swagger-ui.html
 3. It allows an end-user's account information to be used by third-party services. such as facebook with out 
    exposing the user's password.
 The OAuth specification describes five grants for acquiring an access token.
-1. Authorization code grant
-2. Implicit grant
-3. Resource owner credentials grant
-4. Client credentials grant
+1. Authorization code grant  -- used with server-side applications
+2. Implicit grant  -- used with mobile apps or web applications
+3. Resource owner credentials grant -- used with trusted applications,such as those owned by the service itself
+4. Client credentials grant --  used with applications API access
 5. Refresh token grant
+
 
 
 1. In memory authentication.
