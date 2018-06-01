@@ -405,7 +405,30 @@ public class Sample {
 		keepCalling();
 	}
 }
-	
+-----------------------
+Marker interface has no method. Java has built-in marker interface like Serializable, Clonable etc that are understand by JVM.
+We can create our own marker interface but it has nothing to do with JVM, we can add some checks with
+instanceOf.
+
+Suppose we have an interface like
+
+
+interface Marker{    }
+
+class A implements Marker{
+      //do some task
+}
+
+class Main{
+         public static void main(String[] args){
+            A ob = new A()[
+             if (ob instanceOf Marker){
+                // do some task
+           }
+       }
+}
+
+
 		 
 		 
 		 
