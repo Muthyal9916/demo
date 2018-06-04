@@ -159,5 +159,96 @@ public class StackUsingLinkedList {
 	}
 
 }
+Queue(FIFO):--
+---------------
+package linkedlistdemo;
+
+public class QueueUsingLinkedList{
+	
+	
+	public static void main(String[] args) {
+		
+		Queue obj = new Queue();
+		obj.insert(1);
+		obj.insert(2);
+		obj.insert(3);
+		obj.insert(4);
+		obj.remove();
+		obj.remove();
+		obj.display();
+	}
+	
+}
+
+class Queue{
+	
+	LinkedList lilist = new LinkedList();
+	
+	public void insert(int i){
+		lilist.insert(i);
+	}
+	
+	public void remove(){
+		lilist.remove();
+	}
+	public void display(){
+		lilist.display();
+	}
+}
+
+class Node {
+
+	 int data;
+	 Node next;
+	 
+	public Node(int key) {
+		data = key;
+		next = null;
+	}
+	
+	public void display(){
+		System.out.println("item "+data);
+	}
+}
+
+class LinkedList{
+	
+	Node first;
+	
+	public LinkedList(){
+		first = null;
+	}
+	
+	public void insert(int i){
+		
+		Node newnode = new Node(i);
+		if(first == null){
+			first = newnode;
+			return;
+		}
+		Node tempnode = first;
+		while(tempnode.next != null){
+			tempnode = tempnode.next;
+		}
+		tempnode.next = newnode;
+	}
+	
+	public Node remove(){
+		Node temp = first;
+		first = first.next;
+		return temp;
+	}
+	
+	public void display(){
+		Node tempnode = first;
+		while(tempnode != null){
+			tempnode.display();
+			tempnode = tempnode.next;
+		}
+		System.out.println();
+		
+	}
+}
+
 
 
