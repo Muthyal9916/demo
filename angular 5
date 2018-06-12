@@ -29,4 +29,69 @@ Building blocks:
 4. Metadata
 5. Services
 
+<div style="text-align:center">
+<button [disabled]='Btndisabled'>Click Me</button>
+
+  <a [routerLink]="['/']">Home</a>
+  <a [routerLink]="['/Aboutus']">About us</a>
+</div>
+
+<div>
+  <router-outlet>
+
+  </router-outlet>
+</div>
+
+
+ title = 'app';
+
+ways for accessing the properties from component to template :
+1.  property binder ---- <tag  [attr]='propertyname' />
+2.  interpolation   ---- {{}}
+when to use interpolation ?
+plain string format.
+
+one way binding : - 
+ngModel - angular attribute 
+<input type="text" [value]="Message"/><br/> ---- property binder
+{{Message}} ---- interpolation
+
+two way binding :-- 
+1. ngModel while using this ngModel import {FormsModule} from '@angular/forms'; and add FormsModule in imports
+2. $event.target.value
+<input type="text" [(ngModel)]="Message"/><br/>
+<input type="text" (input)='Message=$event.target.value'/><br/>
+
+ex:  component class
+import { Component } from '@angular/core';
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
+})
+export class AppComponent {
+  Btndisabled : boolean = true;
+  something : String ="Hi , How are you";
+  Message : String="Hi,welcome you ,,,.";
+}
+
+2. app.module.ts
+import {FormsModule} from '@angular/forms';
+
+@NgModule({
+  declarations: [
+    AppComponent
+  ],
+  imports: [
+    BrowserModule,FormsModule
+  ],
+  providers: [],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
+ 
+input variables:--@Input() varname : datatype;
+
+common variables:- varname : datatype = value;
+
 
