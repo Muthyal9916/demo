@@ -94,4 +94,13 @@ input variables:--@Input() varname : datatype;
 
 common variables:- varname : datatype = value;
 
+Name : {{Product}} <br/>
+   About : {{Productdescription}} <br/>
+   Price : {{Productcost}}/- <br/>
+   <child [Allreviews]='Productreviews'>
+
+   </child>
+
+
+@output variables: --
 
