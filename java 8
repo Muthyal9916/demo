@@ -54,3 +54,60 @@ Example:-
 	}
 	
 }
+
+BiPredicate:-
+BiPredicate is an functional interface
+By using predicate we can perform conditional operations on Map object.
+
+Example:
+1. class Emp{
+	
+	private String name,desg;
+	int age;
+	private int bsal;
+	
+	public Emp(String name, String desg, int age, int bsal) {
+		super();
+		this.name = name;
+		this.desg = desg;
+		this.age = age;
+		this.bsal = bsal;
+	}
+
+	@Override
+	public String toString() {
+		return "Emp [name=" + name + ", desg=" + desg + ", age=" + age + ", bsal=" + bsal + "]";
+	}
+	
+	
+}
+2. public class BipredicateDemo {
+
+	public static void main(String[] args) {
+
+		Map<String, Emp> map = new HashMap<String, Emp>();
+		map.put("A123",new Emp("muthu", "SE", 45,35400));
+		map.put("A124",new Emp("latha", "SE", 46,35400));
+		map.put("A125",new Emp("Dakshit", "SE", 35,35400));
+		map.put("A126",new Emp("Raju", "SE", 48,35400));
+		
+	
+		map.forEach((p,q) ->{
+			System.out.println(p+"\t"+q);
+		});
+		
+		System.out.println("---Dis using Bipredicate where age 45-----");
+			
+			
+			BiPredicate<String, Emp> p1 = (x,y)->y.age>=45;
+			
+			map.forEach((p,q)->{
+				
+				if(p1.test(p, q)) {
+					System.out.println(p+"\t"+q);
+				}
+			});
+			
+		}
+}
+
