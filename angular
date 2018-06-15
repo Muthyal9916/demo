@@ -104,3 +104,55 @@ Name : {{Product}} <br/>
 
 @output variables: --
 
+
+directives:--
+*ngFor :-- 
+It is a Structural directive
+We can create and destroy on DOM
+It will create an element automatically
+ngFor we have inbuilt index
+
+Syntax:
+<tag *ngFor="let x of collection/array/data"></tag>
+
+examples: 
+1. component.html
+<div style="text-align:center">
+   
+   <table border="1">
+    <thead>
+      <td>S.No</td>
+      <td>empname</td>
+      <td>deptname</td>
+    </thead>
+    <tbody>
+      <tr *ngFor ='let x of Employees;let i=index'>
+        <td>{{i}}</td>
+        <td>{{x.empname}}</td>
+        <td>{{x.deptname}}</td>
+      </tr>
+    </tbody>
+   </table>
+</div>
+2. component.ts
+import { Component } from '@angular/core';
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
+})
+export class AppComponent {
+  title = 'app';
+  Employees =  [
+                {empname:'muthu',deptname:'Developer'},
+                {empname:'muthu',deptname:'Developer'},
+                {empname:'muthu',deptname:'Developer'},
+                {empname:'muthu',deptname:'Developer'},
+                {empname:'muthu',deptname:'Developer'},
+                {empname:'muthu',deptname:'Developer'},
+                {empname:'muthu',deptname:'Developer'}
+                ]
+}
+
+
+
