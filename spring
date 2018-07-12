@@ -1,3 +1,15 @@
+TightCoupling in java:--
+1.  When modifications done in super class, demands modifications in the caller class is called TightCoupling.
+
+Example:--
+
+
+Dependency Injection:--
+----------------
+ Dependency Injection is a design pattern that removes the dependency of the programs, In such case we provide the information from
+ the external source such as XML file. It makes our code loosely coupled and easier for testing.
+ 
+
 The Spring Container is the core of the spring framework. The container creates the objects,wire them together,configure them,
 and manage their complete life cycle from creation till destruction.
    The spring container uses Dependency Injection to manage the components that make up an application.
@@ -108,6 +120,13 @@ public class ClientTest {
 
 ApplicationContext:--
 -------------
+1. The ApplicationContext interface is the child interface of BeanFactory interface.
+2. The ApplicationContext adds some extra functionality than BeanFactory such as simple integration with Spring AOP,
+   message resource handling, event propagation, application layer specific context for webapplication.
+   
+
+
+
 ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
 		Employee emp = context.getBean(Employee.class);
 		System.out.println(emp.getEmployeeId()+"\t"+emp.getEmpName());
