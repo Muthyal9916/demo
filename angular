@@ -1,3 +1,39 @@
+Angular:--
+--------------
+Angular is a data binding framework and client side framework, which is used to create databindings in webpages.
+Client side java script framework.
+organize the client side code.
+Angular is template based framework, it means everything maintaing the client side html code
+Template contains html,image,anchor,description, its a common layout.
+Partial page updates
+Angular is working based on Typescript, Typescript means type features and oops.
+
+template --- Commonlayout + {{}} --> JSON --> Server --> DB
+component = Controller + template 
+component will provide view 
+
+Angular 5 
+HttpClient
+pipes
+
+directives in angular 5
+required
+minlength
+maxlength
+html5
+
+
+
+component  -- > view
+service    -->    data fetching logic,storing logic
+pipes      -->    formatting    
+directives  -- >   extend the html
+
+modules
+
+
+
+
 Development Environment
 
 Node
