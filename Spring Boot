@@ -381,6 +381,33 @@ public class H2dbApplication {
 		SpringApplication.run(H2dbApplication.class, args);
 	}
 }
+
+----------------2nd example ---------------------------
+1. Booterclass
+@SpringBootApplication
+@EnableScheduling
+@ComponentScan({"com.example.demo.task"})
+public class SchedularApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(SchedularApplication.class, args);
+	}
+}
+
+2. Mytask
+@Component
+public class Mytask {
+
+	private static final SimpleDateFormat dateFormat = 
+			new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+	
+	@Scheduled(fixedRate = 5000)
+	public void sendMailToMyFriend(){
+		
+		System.out.println("sendMailToFriends at " +dateFormat.format(new Date()));
+		
+	}
+}
 	 
 -----------------Spring boot RestfulApi Documentation with Swagger ---------------------------
 1. Documentation of REST services is very important to develop.
