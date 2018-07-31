@@ -251,5 +251,342 @@ Transaction Management:--
  https://repo.spring.io/release/org/springframework/spring/
  
  
+ ----------------------Spring with Jdbc------------------------
+ Table:--
+ create table employee_table(employee_id int(11) NOT NULL auto_increment,
+                            employee_name varchar(45) NOT NULL,
+			    salary double default NULL,
+			    email varchar(45) default NULL,
+			    gender varchar(10) default NULL,
+			    PRIMARY KEY (employee_id));
+
+ 
+ Model:
+ public class Employee {
+
+	private int employeeId;
+	private String employeeName;
+	private String email;
+	private Double salary;
+	private String gender;
+	
+	public int getEmployeeId() {
+		return employeeId;
+	}
+	public void setEmployeeId(int employeeId) {
+		this.employeeId = employeeId;
+	}
+	public String getEmployeeName() {
+		return employeeName;
+	}
+	public void setEmployeeName(String employeeName) {
+		this.employeeName = employeeName;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	public Double getSalary() {
+		return salary;
+	}
+	public void setSalary(Double salary) {
+		this.salary = salary;
+	}
+	public String getGender() {
+		return gender;
+	}
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+	
+}
+
+springjdbc.xml
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns:p="http://www.springframework.org/schema/p"
+xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+
+	<!-- <bean id="ds" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+		<property name="url" value="jdbc:mysql://localhost:3306/hibdb" />
+		<property name="username" value="root" />
+		<property name="password" value="Muthu" />
+	</bean>
+	
+	1. Creating JdbcTemplate object 
+	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+		<property name="dataSource" ref="ds"></property>
+	</bean>
+	
+	2. Injecting JdbcTemplate object to StudentDao class property 
+	<bean id="dao" class="jdbc.dao.StudentDao">
+		<property name="jdbcTemplate" ref="jdbcTemplate"></property>
+	</bean> -->
+	
+	
+	<bean id="datasource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+		<property name="url" value="jdbc:mysql://localhost:3306/hibdb" />
+		<property name="username" value="root" />
+		<property name="password" value="Muthu" />
+	</bean>
+
+<bean id="employeeService" class="jdbc.service.EmployeeServiceImp">
+   <property name="employeeDao" ref="employeeDao"/>
+</bean>
+<bean id="employeeDao" class="jdbc.dao.EmployeeDaoImp">
+ <property name="dataSource" ref="datasource"/>
+</bean>
+
+</beans>
+
+Test:-
+package jdbc.test;
+
+import java.util.List;
+
+import org.springframework.context.support.AbstractApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import jdbc.model.Employee;
+import jdbc.service.EmployeeService;
+import jdbc.service.EmployeeServiceImp;
+
+public class Test {
+
+	public static void main(String[] args) {
+
+		
+		AbstractApplicationContext context = new ClassPathXmlApplicationContext("springjdbc.xml");
+		EmployeeService service = context.getBean("employeeService",EmployeeServiceImp.class);
+		
+//		createEmployee(service);
+		
+//		Employee emp = service.fetchEmployeeById(2);
+//		System.out.println(emp.getEmployeeId()+"\t"+emp.getEmployeeName());
+		
+		
+//		List<Employee> emp =  service.getAllEmployeeInfo();
+//		for(Employee e:emp) {
+//			System.out.println(e.getEmployeeId()+"\t"+e.getEmployeeName()+"\t"+e.getGender()+"\t"+e.getSalary());
+//		}
+		
+//		service.updateEmployeeEmailById("muthu1@gmail.com", 2);
+		
+		service.deleteEmployeeById(2);
+		
+		context.close();
+	}
+	
+	
+	public static void createEmployee(EmployeeService service) {
+		Employee emp = new Employee();
+		emp.setEmail("bunny@gmail.com");
+		emp.setEmployeeName("bunny");
+		emp.setSalary(60000.00);
+		emp.setGender("male");
+		
+		service.addEmployee(emp);
+	}
+
+}
+
+EmpService:--
+public interface EmployeeService {
+
+	public abstract void addEmployee(Employee employee);
+	public abstract Employee fetchEmployeeById(int employeeId);
+	public abstract void deleteEmployeeById(int empployeeId);
+	public abstract void updateEmployeeEmailById(String newEmail,int employeeId);
+	public abstract List<Employee> getAllEmployeeInfo();
+}
+
+EmployeeServiceImp:--
+package jdbc.service;
+
+import java.util.List;
+
+import jdbc.dao.EmployeeDao;
+import jdbc.model.Employee;
+
+public class EmployeeServiceImp implements EmployeeService{
+	
+	private EmployeeDao employeeDao;
+	
+	public EmployeeDao getEmployeeDao() {
+		return employeeDao;
+	}
+
+	public void setEmployeeDao(EmployeeDao employeeDao) {
+		this.employeeDao = employeeDao;
+	}
+
+	@Override
+	public void addEmployee(Employee employee) {
+		employeeDao.createEmployee(employee);
+		
+	}
+
+	@Override
+	public Employee fetchEmployeeById(int employeeId) {
+		return employeeDao.getEmployeeById(employeeId);
+	}
+
+	@Override
+	public void deleteEmployeeById(int empployeeId) {
+		employeeDao.deleteEmployeeById(empployeeId);
+		
+	}
+
+	@Override
+	public void updateEmployeeEmailById(String newEmail, int employeeId) {
+		employeeDao.updateEmployeeEmailById(newEmail, employeeId);
+		
+	}
+
+	@Override
+	public List<Employee> getAllEmployeeInfo() {
+		return employeeDao.getAllEmployeeDetails();
+	}
+
+}
+
+EmployeeDao:--
+package jdbc.dao;
+
+import java.util.List;
+
+import jdbc.model.Employee;
+
+public interface EmployeeDao {
+
+	public abstract void createEmployee(Employee employee);
+	public abstract Employee getEmployeeById(int employeeId);
+	public abstract void deleteEmployeeById(int empployeeId);
+	public abstract void updateEmployeeEmailById(String newEmail,int employeeId);
+	public abstract List<Employee> getAllEmployeeDetails();
+}
+
+EmployeeDaoImp:--
+package jdbc.dao;
+
+public class EmployeeDaoImp implements EmployeeDao{
+	
+	
+	private DataSource dataSource;
+	private JdbcTemplate jdbcTemplate;
+	
+	public DataSource getDataSource() {
+		return dataSource;
+	}
+
+	public void setDataSource(DataSource dataSource) {
+		this.dataSource = dataSource;
+		this.jdbcTemplate = new JdbcTemplate(dataSource);
+	}
+
+	@Override
+	public void createEmployee(Employee employee) {
+		
+		
+		/*Connection conn = null;
+		PreparedStatement ps = null;
+		try {
+			
+			conn = dataSource.getConnection();
+			String sql ="insert into employee_table(employee_name,email,gender,salary) VALUEs(?,?,?,?)";
+			ps = conn.prepareStatement(sql);
+			
+			ps.setString(1, employee.getEmployeeName());
+			ps.setString(2, employee.getEmail());
+			ps.setString(3, employee.getGender());
+			ps.setDouble(4, employee.getSalary());
+			int up = ps.executeUpdate();
+			
+			if(up > 0) {
+				System.out.println("Employee is created");
+			}
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(conn !=null)
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+		}*/
+		String sql ="insert into employee_table(employee_name,email,gender,salary) VALUEs(?,?,?,?)";
+		int up = jdbcTemplate.update(sql, new Object[] {employee.getEmployeeName(),employee.getEmail(),employee.getGender(),employee.getSalary()});
+		if(up > 0) {
+			System.out.println("Employee is created");
+		}
+	}
+
+	@Override
+	public Employee getEmployeeById(int employeeId) {
+		
+		String sql="select * from employee_table where employee_id=?";
+		Employee emp = jdbcTemplate.queryForObject(sql, new EmployeeRowMapper(),employeeId);
+		
+		return emp;
+	}
+
+	@Override
+	public void deleteEmployeeById(int empployeeId) {
+	
+		String sql ="delete from employee_table where employee_id=?";
+		int update = jdbcTemplate.update(sql,empployeeId);
+		if(update >0) {
+			System.out.println("Employee deleted successfully..");
+		}
+		
+	}
+
+	@Override
+	public void updateEmployeeEmailById(String newEmail, int employeeId) {
+		String sql = "update employee_table set email=? where employee_id=?";
+		int update = jdbcTemplate.update(sql, newEmail,employeeId);
+		if(update >0) {
+			System.out.println("update successfully..");
+		}
+	}
+
+	@Override
+	public List<Employee> getAllEmployeeDetails() {
+		String sql ="select * from employee_table";
+		return jdbcTemplate.query(sql,new EmployeeRowMapper());
+	}
+
+}
+
+EmployeeRowMapper:--
+package jdbc.dao;
+
+public class EmployeeRowMapper implements RowMapper<Employee>{
+
+	@Override
+	public Employee mapRow(ResultSet rs, int rowNum) throws SQLException {
+		
+		Employee emp = new Employee();
+		emp.setEmail(rs.getString("email"));
+		emp.setEmployeeId(rs.getInt("employee_id"));
+		emp.setEmployeeName(rs.getString("employee_name"));
+		emp.setSalary(rs.getDouble("salary"));
+		emp.setGender(rs.getString("gender"));
+		return emp;
+	}
+
+}
+
+ 
+ 
 
    
