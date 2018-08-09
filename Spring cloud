@@ -1,4 +1,8 @@
 Hystrix:--
+Hystrix is the implementation of Circuit Breaker Pattern,which gives a control over latency and failure between 
+distributed services.
+The main idea is to stop cascading failures.
+Important aspects of fault-tolerant systems that self-heal.
 
 In this program we are calling 2 services, if any one service fials it will not get the response, here other two services are
 normal restcalls.
