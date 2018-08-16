@@ -731,7 +731,100 @@ public class TicketBookingManagementAppApplication{
 }
 --------------------------------------------------------------------------------------------------------------
 
+========================= 2nd way for providing security ================================
 
+package com.example.demo;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+
+@SuppressWarnings("deprecation")
+@Configuration
+public class SpringSecurityConfig extends WebSecurityConfigurerAdapter{
+
+	//authentication  : set user/password details and mention the role
+	@Override
+	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+		
+		/*auth.inMemoryAuthentication()
+		.passwordEncoder(org.springframework.security.crypto.password.NoOpPasswordEncoder.getInstance())
+		.withUser("user").password("pass").roles("USER")
+		.and()
+		.withUser("admin").password("pass").roles("USER","ADMIN");*/
+		
+		auth.inMemoryAuthentication().withUser("java").password("java").roles("ADMIN");
+		
+	}
+	
+	//autherization : mention which role can access which URL
+	
+	// security for all api
+	/*@Override
+	protected void configure(HttpSecurity http) throws Exception {
+		
+		http.httpBasic().and().authorizeRequests()
+		.antMatchers("/userlogin").hasRole("USER")
+		.antMatchers("/adminlogin").hasRole("ADMIN")
+		.and()
+		.csrf().disable().headers().frameOptions().disable();
+		
+		
+		http.csrf().disable();
+		http.authorizeRequests().anyRequest().fullyAuthenticated().and().httpBasic();
+	}*/
+	
+	// security based on URL
+	@Override
+	protected void configure(HttpSecurity http) throws Exception {
+		
+		http.csrf().disable();
+		http.authorizeRequests().antMatchers("/userlogin/**").hasRole("ADMIN").and().httpBasic();
+	}
+	
+	
+	@Bean
+	public static NoOpPasswordEncoder passwordEncoder() {
+		return (NoOpPasswordEncoder)NoOpPasswordEncoder.getInstance();
+	}
+}
+
+
+-----------controller----
+@RestController
+public class SpringJava4sController {
+
+	@RequestMapping("/userlogin")
+	public String userValidation() {
+		return "User: Successfully logged in";
+	}
+	
+	
+	@RequestMapping("/adminlogin")
+	public String adminValidation() {
+		return "Admin: Successfully logged in";
+	}
+}
+
+------bootstrap class-------
+@SpringBootApplication
+@EnableWebSecurity
+public class SpringbootSecurityApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(SpringbootSecurityApplication.class, args);
+	}
+}
+
+--------
+============================================= End =====================================================================
+
+
+
+              
 
 
 
