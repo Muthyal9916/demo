@@ -338,6 +338,283 @@ public class UserDetailsServiceImpl implements UserDetailsService  {
 
 	}
 }
+------------------------------------End Authoriztion Server----------------------------------------------------------
+
+2. GatwayService
+pom.xml
+----------------
+<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-netflix-zuul</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+			 <dependency>
+		 <groupId>org.springframework.cloud</groupId>
+		 <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+	 </dependency>
+	 <dependency>
+		 <groupId>org.springframework.boot</groupId>
+		 <artifactId>spring-boot-starter-security</artifactId>
+	 </dependency>
+	 <dependency>
+		 <groupId>io.jsonwebtoken</groupId>
+		 <artifactId>jjwt</artifactId>
+		 <version>0.9.0</version>
+	 </dependency>
+	 <dependency>
+		 <groupId>org.springframework.boot</groupId>
+		 <artifactId>spring-boot-devtools</artifactId>
+		 <optional>true</optional>
+</dependency>
+	</dependencies>
+
+2.  application.properties
+server.port=8762
+spring.security.user.name=admin
+spring.security.user.password=root
+spring.application.name=zuul-server
+eureka.client.service-url.default-zone=http://localhost:8761/eureka/
+
+# A prefix that can added to beginning of all requests. 
+#zuul.prefix=/api
+
+# Disable accessing services using service name (i.e. gallery-service).
+# They should be only accessed through the path defined below.
+zuul.ignored-services=*
+
+# Map paths to services
+zuul.routes.gallery-service.path=/gallery/**
+zuul.routes.gallery-service.service-id=gallery-service
+
+zuul.routes.auth-service.path=/auth/**
+zuul.routes.auth-service.service-id=AUTH-SERVICE
+
+zuul.routes.auth-service.strip-prefix=false
+
+zuul.routes.auth-service.sensitive-headers=Cookie,Set-Cookie 
+
+3. GatewayApplication
+@SpringBootApplication
+@EnableEurekaClient 		// It acts as a eureka client
+@EnableZuulProxy	
+public class GatewayApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(GatewayApplication.class, args);
+	}
+}
+
+4. JwtConfig
+package com.security.gateway;
+
+import org.springframework.beans.factory.annotation.Value;
+
+public class JwtConfig {
+    @Value("${security.jwt.uri:/auth/**}")
+    private String Uri;
+
+    @Value("${security.jwt.header:Authorization}")
+    private String header;
+
+    @Value("${security.jwt.prefix:Bearer }")
+    private String prefix;
+
+    @Value("${security.jwt.expiration:#{24*60*60}}")
+    private int expiration;
+
+    @Value("${security.jwt.secret:JwtSecretKey}")
+    private String secret;
+
+	public String getUri() {
+		return Uri;
+	}
+
+	public void setUri(String uri) {
+		Uri = uri;
+	}
+
+	public String getHeader() {
+		return header;
+	}
+
+	public void setHeader(String header) {
+		this.header = header;
+	}
+
+	public String getPrefix() {
+		return prefix;
+	}
+
+	public void setPrefix(String prefix) {
+		this.prefix = prefix;
+	}
+
+	public int getExpiration() {
+		return expiration;
+	}
+
+	public void setExpiration(int expiration) {
+		this.expiration = expiration;
+	}
+
+	public String getSecret() {
+		return secret;
+	}
+
+	public void setSecret(String secret) {
+		this.secret = secret;
+	}
+
+}
+5. JwtTokenAuthenticationFilter
+package com.security.gateway;
+import java.io.IOException;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import javax.servlet.FilterChain;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.filter.OncePerRequestFilter;
+
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
+
+public class JwtTokenAuthenticationFilter extends  OncePerRequestFilter {
+    
+	private final JwtConfig jwtConfig;
+	
+	public JwtTokenAuthenticationFilter(JwtConfig jwtConfig) {
+		this.jwtConfig = jwtConfig;
+	}
+
+	@Override
+	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
+			throws ServletException, IOException {
+		
+		// 1. get the authentication header. Tokens are supposed to be passed in the authentication header
+		String header = request.getHeader(jwtConfig.getHeader());
+		
+		// 2. validate the header and check the prefix
+		if(header == null || !header.startsWith(jwtConfig.getPrefix())) {
+			chain.doFilter(request, response);  		// If not valid, go to the next filter.
+			return;
+		}
+		
+		// If there is no token provided and hence the user won't be authenticated. 
+		// It's Ok. Maybe the user accessing a public path or asking for a token.
+		
+		// All secured paths that needs a token are already defined and secured in config class.
+		// And If user tried to access without access token, then he won't be authenticated and an exception will be thrown.
+		
+		// 3. Get the token
+		String token = header.replace(jwtConfig.getPrefix(), "");
+		
+		try {	// exceptions might be thrown in creating the claims if for example the token is expired
+			
+			// 4. Validate the token
+			Claims claims = Jwts.parser()
+					.setSigningKey(jwtConfig.getSecret().getBytes())
+					.parseClaimsJws(token)
+					.getBody();
+			
+			String username = claims.getSubject();
+			if(username != null) {
+				@SuppressWarnings("unchecked")
+				List<String> authorities = (List<String>) claims.get("authorities");
+				
+				// 5. Create auth object
+				// UsernamePasswordAuthenticationToken: A built-in object, used by spring to represent the current authenticated / being authenticated user.
+				// It needs a list of authorities, which has type of GrantedAuthority interface, where SimpleGrantedAuthority is an implementation of that interface
+				 UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(
+								 username, null, authorities.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList()));
+				 
+				 // 6. Authenticate the user
+				 // Now, user is authenticated
+				 SecurityContextHolder.getContext().setAuthentication(auth);
+			}
+			
+		} catch (Exception e) {
+			// In case of failure. Make sure it's clear; so guarantee user won't be authenticated
+			SecurityContextHolder.clearContext();
+		}
+		
+		// go to the next filter in the filter chain
+		chain.doFilter(request, response);
+	}
+
+}
+
+6. SecurityTokenConfig
+package com.security.gateway;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpMethod;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
+@EnableWebSecurity 	// Enable security config. This annotation denotes config for spring security.
+public class SecurityTokenConfig extends WebSecurityConfigurerAdapter {
+	@Autowired
+	private JwtConfig jwtConfig;
+ 
+	@Override
+  	protected void configure(HttpSecurity http) throws Exception {
+    	   http
+		.csrf().disable()
+		    // make sure we use stateless session; session won't be used to store user's state.
+	 	    .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS) 	
+		.and()
+		    // handle an authorized attempts 
+		    .exceptionHandling().authenticationEntryPoint((req, rsp, e) -> rsp.sendError(HttpServletResponse.SC_UNAUTHORIZED)) 	
+		.and()
+		   // Add a filter to validate the tokens with every request
+		   .addFilterAfter(new JwtTokenAuthenticationFilter(jwtConfig), UsernamePasswordAuthenticationFilter.class)
+		// authorization requests config
+		.authorizeRequests()
+		   // allow all who are accessing "auth" service
+		   .antMatchers(HttpMethod.POST, jwtConfig.getUri()).permitAll()  
+		   // must be an admin if trying to access admin area (authentication is also required here)
+		   .antMatchers("/gallery" + "/admin/**").hasRole("ADMIN")
+		   // Any other request must be authenticated
+		   .anyRequest().authenticated(); 
+	}
+	
+	@Bean
+  	public JwtConfig jwtConfig() {
+    	   return new JwtConfig();
+  	}
+}
+
+
+	
+
+
 
 
 
