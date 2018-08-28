@@ -8,3 +8,13 @@ Microservices architecture:- Every module is different independent deployable un
 Benefits:-- 
 1. Each microservice is relatively small.
 2. 
+
+Drawbacks  of Microservices:--
+
+Complexity of developing a distributed system
+Implementing inter-process communication
+Handling partial failures
+Complexity of implementing business transactions that span multiple databases (with out 2PC)
+Complexity of testing a distributed system
+Complexity of developing and operating a distributed system
+
