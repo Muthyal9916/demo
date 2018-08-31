@@ -693,6 +693,96 @@ Test:
 		emp.displayEmployeeDetails();
 
 
+ @Qualifier Annotation:--
+ The @Qualifier annotation is used to control which bean should be autowire on a field.
+ Employee:
+ public class Employee {
+
+	private String name;
+	
+	
+	@Autowired
+	@Qualifier("address")
+	private Address address;
+	
+	
+	public Employee(String name) {
+		
+		System.out.println("Employee(String name) constructor " + "is called by the Spring container");
+		this.name = name;
+	}
+	
+	public void displayEmployeeDetails() {
+		System.out.println("Employee[name"+ name +",address="+ address + "]");
+	}
+	
+}
+.xml
+<beans xmlns="http://www.springframework.org/schema/beans"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns:context="http://www.springframework.org/schema/context"
+xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+http://www.springframework.org/schema/context
+http://www.springframework.org/schema/context/spring-context-4.0.xsd">
+
+<context:annotation-config/>
+
+
+
+<bean id="address" class="autowired.model.Address">
+<constructor-arg value="Bangalore"/>
+<constructor-arg value="Karnataka"/>
+<constructor-arg value="India"/>
+</bean>
+
+<bean id="address1" class="autowired.model.Address" >
+<constructor-arg value="Bangalore East"/>
+<constructor-arg value="KarnatakaEast"/>
+<constructor-arg value="India"/>
+</bean>
+
+<bean id="employee" class="springCore.bean.Employee">
+
+<constructor-arg value="muthu"></constructor-arg>
+</bean>
+
+</beans>
+
+Test:
+ApplicationContext context = new ClassPathXmlApplicationContext("dependencycheck.xml");
+		System.out.println("-------------------------------------------");
+		
+		Employee emp = (Employee) context.getBean("employee");
+		emp.displayEmployeeDetails();
+		
+
+@Resource Annotation:--
+We can use @Resource annotation to auto wire bean on the setter method or a field.
+Moreover it can be autowired property in a particular bean.
+public class Employee {
+
+	private String name;
+	
+	
+//	@Autowired
+//	@Qualifier("address")
+	@Resource
+	private Address address;
+	
+	
+	public Employee(String name) {
+		
+		System.out.println("Employee(String name) constructor " + "is called by the Spring container");
+		this.name = name;
+	}
+	
+	public void displayEmployeeDetails() {
+		System.out.println("Employee[name"+ name +",address="+ address + "]");
+	}
+	
+}
+
  
  
 
