@@ -586,6 +586,11 @@ public class EmployeeRowMapper implements RowMapper<Employee>{
 
 }
 
+------------------------------------------------------------------------------------------------------------------------
+Spring Auto-Scanning Components
+Normally we declare all the beans or components in XML bean configuration file, so that spring can detect and register your
+beans or components.Actually, spring is able to autoscan,detect and instantiate your beans from pre-defined project package.
+
  
  
 
