@@ -591,6 +591,108 @@ Spring Auto-Scanning Components
 Normally we declare all the beans or components in XML bean configuration file, so that spring can detect and register your
 beans or components.Actually, spring is able to autoscan,detect and instantiate your beans from pre-defined project package.
 
+Add this "context:component-scan" in bean configuration file,it means enable auto scanning feature in spring.
+The base-package is indicate where are your components stored,Spring will scan this folder and create the bean(annotated with
+@component) and register it in spring container.
+
+EmployeeDAO:
+@Component // if we want to make it custom component use @component("empSer) use this one in .xml file
+public class EmployeeDao {
+	public void addEmployee() {
+		System.out.println("inside EmployeeDAO addEmployee().");
+	}
+}
+EmployeeService:
+@Component
+public class EmployeeService {
+	@Autowired
+	EmployeeDao employeeDAO;
+	
+	
+	public void setEmployeeDAO(EmployeeDao employeeDAO) {
+		this.employeeDAO = employeeDAO;
+	}
+	
+	public void addEmployee() {
+		System.out.println("Inside EmployeeService addEmployee()");
+		employeeDAO.addEmployee();
+	}
+
+	@Override
+	public String toString() {
+		return "EmployeeService [employeeDAO=" + employeeDAO + "]";
+	}
+}
+<beans xmlns="http://www.springframework.org/schema/beans"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns:context="http://www.springframework.org/schema/context"
+xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+http://www.springframework.org/schema/context
+http://www.springframework.org/schema/context/spring-context-4.0.xsd">
+
+<context:component-scan base-package="customautoscan"/>
+
+</beans>
+
+AutoScanApp
+public class AutoScanApp {
+
+	public static void main(String[] args) {
+
+		ApplicationContext context = new ClassPathXmlApplicationContext("autscancomponent.xml");
+		EmployeeService employeeService = (EmployeeService) context.getBean("employeeService",EmployeeService.class);
+		
+		//if we are using custom using this empServ
+		EmployeeService employeeService = (EmployeeService) context.getBean("empSer",EmployeeService.class);
+		
+		System.out.println(employeeService);
+	    employeeService.addEmployee();	
+	
+	}
+
+}
+
+Autowired Annotation :--
+By default @autowired will perform the dependency checking to make sure the property has been wired properly
+Employee:
+public class Employee {
+
+	private String name;
+	
+	
+	@Autowired(required=false)
+	private Address address;
+	
+	
+	public Employee(String name) {
+		
+		System.out.println("Employee(String name) constructor " + "is called by the Spring container");
+		this.name = name;
+	}
+	
+	public void displayEmployeeDetails() {
+		System.out.println("Employee[name"+ name +",address="+ address + "]");
+	}
+	
+}
+
+<bean id="employee" class="springCore.bean.Employee">
+
+<constructor-arg value="muthu"></constructor-arg>
+</bean>
+
+</beans>
+
+Test:
+
+		ApplicationContext context = new ClassPathXmlApplicationContext("dependencycheck.xml");
+		System.out.println("-------------------------------------------");
+		
+		Employee emp = (Employee) context.getBean("employee");
+		emp.displayEmployeeDetails();
+
+
  
  
 
