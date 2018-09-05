@@ -785,6 +785,7 @@ public class Employee {
 
 Name parameter of Resource Annotation:--
 The @Resource (name="address1") annotation used to control which bean should be autowire on a field.
+@Resource is not applicable for constructors.
 public class Employee {
 
 	private String name;
