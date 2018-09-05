@@ -877,6 +877,64 @@ public class FilterAutoscan {
 	}
 }
 
+ResourceLoaderAware:-
+we have implemented ResourceLoaderAware interface using which we have accessed the file content of the file available in the
+classpath.
+
+names.txt
+Muthu
+Peter
+Juli
+
+ResourceLoaderAwareImpl.java
+public class ResourceLoaderAwareImpl implements ResourceLoaderAware{
+	private ResourceLoader resourceLoader;
+	@Override
+	public void setResourceLoader(ResourceLoader resourceLoader) {
+		System.out.println("setResourceLoader(Resource Loader) is called"+"by the spring container");
+		this.resourceLoader = resourceLoader;
+	}
+	public void displayFileInfo() {
+	Resource resource = resourceLoader.getResource("names.txt");
+			try {
+				BufferedReader br = new BufferedReader(new FileReader(resource.getFile().getPath()));
+			{
+				String thisline = null;
+				System.out.println("Names from the files are...:");
+				
+				while((thisline = br.readLine()) != null) {
+					System.out.println(thisline);
+				}
+			}
+			}catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+}
+
+resourceloader.xml
+<beans xmlns="http://www.springframework.org/schema/beans"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns:context="http://www.springframework.org/schema/context"
+xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+http://www.springframework.org/schema/context
+http://www.springframework.org/schema/context/spring-context-4.0.xsd">
+<bean id="resourceLoaderAware" class="resourceloadaware.aware.ResourceLoaderAwareImpl"></bean>
+</beans>
+App.java
+public class App {
+	public static void main(String[] args) {
+		ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("resourceloader.xml");
+		ResourceLoaderAwareImpl resourceLoaderAwareImpl = (ResourceLoaderAwareImpl)applicationContext.getBean("resourceLoaderAware");
+		System.out.println("resourceLoaderAwareImpl ="+resourceLoaderAwareImpl);
+		resourceLoaderAwareImpl.displayFileInfo();
+		applicationContext.close();
+	}
+}
+
 
 
 
