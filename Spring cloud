@@ -64,3 +64,14 @@ public class HystrixDemoApplication {
 		return new RestTemplate();
 	}
 }
+
+-----------------------------------------------------------------------------------------------------------------------------
+Spring Eureka Server:--
+Eureka is a service registory or we can say it is an embeded server provided by Netflix third party which integrate with spring framework.
+
+Use of Eureka:--
+Microservice registration and discovery with spring cloud and netflix eureka.
+
+
+
+
