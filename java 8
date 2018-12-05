@@ -27,6 +27,13 @@ exmp: (int a,int b) -> s.o.p(a+b);
 2. If we are passing one input parameter parenthesis is optional
 exmp: (s) -> s.o.p("Hello");
         s -> s.length();
+3. Lambda paranthesis
+() -> s.o.p("Hello");
+(a,b) -> s.o.p(a+b);
+s -> s.length();
+
+4. If multiple parameters present then these parameters should be seperaed with ,
+(a,b) -> s.o.p(a+b);
 	
 
 
