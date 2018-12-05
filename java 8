@@ -1,3 +1,35 @@
+Lambda (->) expressions:--
+-----------------
+Why we are using lambda expressions in java
+1. To enable functional programming in java
+2. To write more readble,maintainable and clean consise cole
+3. To use Api's very easily and effectively
+4. To enable parallel processing.
+
+What is Lambda expressions:--
+--------------------------
+1. It is an annonymous function
+2. Not having name
+3. Not having modifiers
+4. Not having any return type
+
+Examples:-
+--------
+1. m1() -> {s.o.p("Hello"));}
+2. (int a,int b) -> {s.o.p("a+b");}
+3. (String s) -> {return s.length();}
+
+Note:--
+--------------
+1. If body of lambda expressions contains only one line curly braces are optional
+() -> s.o.p("Hello");
+exmp: (int a,int b) -> s.o.p(a+b);
+2. If we are passing one input parameter parenthesis is optional
+exmp: (s) -> s.o.p("Hello");
+        s -> s.length();
+	
+
+
 Predicate: 
 Predicate is an functional interface
 By using predicate we can perform conditional operations on collection object.
