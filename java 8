@@ -2,7 +2,7 @@ Lambda (->) expressions:--
 -----------------
 Why we are using lambda expressions in java
 1. To enable functional programming in java
-2. To write more readble,maintainable and clean consise cole
+2. To write more readble,maintainable and clean consise code
 3. To use Api's very easily and effectively
 4. To enable parallel processing.
 
