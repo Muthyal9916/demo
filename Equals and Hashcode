@@ -92,3 +92,38 @@ class Employee{
 	}
 	
 }
+
+---------------------------------------2nd Example ---------------------------------------------------
+
+public class Tests {
+
+
+    int sno;
+    String name;
+
+    public Tests(int sno,String name){
+
+        this.sno = sno;
+        this.name = name;
+    }
+
+    @Override
+    public String toString(){
+        return sno+" "+name;
+    }
+
+    @Override
+    public int hashCode(){
+        return sno+name.hashCode();
+    }
+
+    public static void main(String[] args) {
+
+        Tests s1 = new Tests(101,"muthu");
+        Tests s2 = new Tests(101,"muthu");
+
+        System.out.println(s1.hashCode());
+        System.out.println(s2.hashCode());
+    }
+}
+
