@@ -250,5 +250,71 @@ class LinkedList{
 	}
 }
 
+===================================================================================================================================
+public class Node {
+
+    public int data;
+    public Node next;
+
+    Node(int data){
+        this.data = data;
+        next = null;
+    }
+
+    public void display(){
+        System.out.println(" =================== "+data);
+    }
+}
+
+public class LinkedList {
+
+    Node head;
+
+    public void insert(int newData){
+        Node newNode = new Node(newData);
+        newNode.next = head;
+        head = newNode;
+    }
+
+    public void insertLast(int newData){
+        Node CurrentNode = head;
+        while(CurrentNode.next != null){
+            CurrentNode = CurrentNode.next;
+        }
+        Node newNode = new Node(newData);
+        CurrentNode.next = newNode;
+    }
+
+    public void printNode(){
+
+        Node tempNode = head;
+        while(tempNode != null){
+            tempNode.display();
+            tempNode = tempNode.next;
+        }
+    }
+
+
+
+}
+public class ListDemo {
+
+    public static void main(String[] args) {
+
+        LinkedList list = new LinkedList();
+        list.insert(11);
+        list.insert(13);
+        list.insert(14);
+
+        list.insert(18);
+        list.insert(15);
+
+        list.insertLast(2);
+        list.insertLast(5);
+        list.printNode();
+
+
+    }
+}
 
 
