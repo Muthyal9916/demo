@@ -1,0 +1,108 @@
+Unmarshalling :-- Converting XML to java object
+Marshalling : -- Converting java object to XML
+
+There are two ways to convert
+
+JAXB API :-- (marshalling and unmarshalling)
+Jaxp :-- SAX, DOM
+
+Exmp :--
+
+@xmlRootElement
+class employee{
+
+@xmlElement
+private int empId;
+private String empName;
+private double empSa;
+
+File fie = new File("C://file.xml");
+JAXBContext jaxbContext = JAXBContext.newInstance(Customer.class);
+Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
+
+//output pretty printed
+jaxbMarshaller.setProperty)(Marshaller.JAXB_FORMATTED_OUTPUT,true);
+
+
+SimpleType and ComplexType
+SimpleType == like int,string
+ComplexType == our pojo
+
+
+//generate xsd to java
+there are three ways
+POJO from xsd in eclipse
+POJO from xsd schema command line
+POJO from xsd using Mavenplugin
+
+//create xsd file
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+targetNamespace="http://www.example.org/employee"
+ xmlns:tns="http://www.example.org/employee" elementFormDefault="qualified">
+<xs:element name="employee">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="empId" type="xs:int"/>
+<xs:element name="empName" type="xs:string"/>
+<xs:element name="empSal" type="xs:double"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+</xs:schema>
+
+// generate JAXB binding classess
+right click on xsd file and generate the JAXB binding classes
+
+// main
+
+package main;
+
+import java.io.File;
+
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.Marshaller;
+import javax.xml.bind.Unmarshaller;
+
+import com.mit.sudo.bean.Employee;
+import com.sun.jmx.remote.internal.Unmarshal;
+
+public class ClientExample {
+
+	public static void marshalling(String[] args) {
+		
+		Employee emp = new Employee();
+		emp.setEmpId(20);
+		emp.setEmpName("muthu");
+        emp.setEmpSal(548222);
+		
+		try {
+			JAXBContext jaxbConext = JAXBContext.newInstance(Employee.class);
+			Marshaller  marshaller = jaxbConext.createMarshaller();
+			
+			marshaller.marshal(emp, new File("E://employee.xml"));
+			marshaller.marshal(emp,System.out);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public static void main(String[] args) {
+		
+		try {
+			JAXBContext context = JAXBContext.newInstance(Employee.class);
+			Unmarshaller unmarshaller = context.createUnmarshaller();
+		Employee emps = 	(Employee) unmarshaller.unmarshal(new File("E://employee.xml"));
+			System.out.println(emps.getEmpId()+" - "+emps.getEmpName()+" - "+emps.getEmpSal());
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	
+
+}
+
