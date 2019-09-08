@@ -1,0 +1,69 @@
+Transaction Management:--
+------------ 
+  The Transaction can be defined with ACID Properties.
+  
+  Atomicity -  All success or none.
+  Consistency - Database constraints should not be violated.
+  Isolation - One Transaction should not affect another one.
+  Durability - It should in database after commit.
+  
+Different ways of the Transaction Management:-
+-------------------
+1. Programmatic Transaction Management.
+2. Declarative Transaction Management.
+
+Programmatic Transaction Management :-
+---------------------------
+    Here we need to write some extra code for transaction management. When we say some extra code what does it mean ? we need to takecare of
+    
+    Creating Transaction reference
+    Begin Transaction
+    Commit or rollback of the transaction
+ 
+ Example :--
+ 
+ Transaction transactionRef = entityManager.getTransaction();
+ try{
+     transactionRef.begin();
+     //businesslogin
+     
+     transactionRef.commit();
+  catch(Exception e){
+     transactionRef.rollback();
+     e.printStackTrace();
+     }
+ }   
+    
+Declarative Transaction Management:-
+------------------------
+      No need to write extra code for getting a transaction. we can use annotations or XML-based approach to manage the transactions
+and we can avoid unnecessary code. If we use annotation based approach we can use @Transactional and if use the XML-based approach
+we need to configure DataSourceTransactionManager or any other transaction manager in xml as a bean
+
+Example :-
+   @Transactional(readOnly=true, propagation = Propagation.REQUIRES_NEW)
+    public Book findOneString objectId) {
+        return repository.findOne(objectId);
+    }
+  Sample code for XML-based declarative transaction management –
+  <?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
+ 
+	
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	
+  </beans>
+    
+
+
+@Transactional:-
+----------------------
+            If we have something wrong in our code data should not persist.
