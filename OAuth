@@ -1,0 +1,38 @@
+What is OAuth?
+    OAuth is an Open authentication and authorization standard that helps us to provide authorization into a third party application 
+    with out providing it your credentials. It's a Token based auuthentication.
+    
+OAuth Roles:
+  Resource Server : 
+  Authorization Server : Authorizes the app
+  Resource owner : User
+  Client :  Thrid party appliction
+  
+OAuth Endpoints :
+  Authorization endpoint :
+  Token endpoint :
+  Token Revocation :
+  Token Validation : 
+ 
+ OAuth Terminologies :
+   Client_id
+   Client_secret
+   Grant_Type
+   RedirectURi
+   UserName
+   Password
+   Scope
+   State
+   Access_Token
+   Token_Type
+   Expires_in
+   RefreshToken
+   
+   
+  
+  
+  
+
+    
+    
+  
