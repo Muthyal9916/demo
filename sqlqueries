@@ -6,3 +6,8 @@ Getting the 2nd height salary:--
 ---------------------
 select max(sal) from emp where sal < (select max(sal) from emp where sal <(select max(sal) from emp));
 
+Innerjoin:--
+--------------------
+It will display matching values in both tables
+select emp.deptno from emp INNER JOIN dept on emp.deptno = dept.deptno;
+
