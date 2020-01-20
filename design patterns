@@ -119,6 +119,13 @@ enum EnumDemo{
 }
 
 
+Factory Design pattern:--
+--------------------------
+1. In factory design pattern , we create object without exposing creation logic to the client.
+2. In Simple words, if we have a super class and n subclasses and based on data provided we have to return the object of one of the sub-classes.
+
+Abstract Factory design pattern:--
+------------------------
 
 
 
