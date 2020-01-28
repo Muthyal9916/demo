@@ -150,3 +150,72 @@ Example:
 		}
 }
 
+Optional Class:--
+----------------------
+It is public final class and used to deal with NullPointerException in java application.
+Null Checks are not required.
+No more NullPointerException at runtime.
+
+Example:--
+public class OptionalBasicExample {
+
+    public static void main(String[] args) {
+
+        Optional<String> gender = Optional.of("MALE");
+        String answer1 = "Yes";
+        String answer2 = null;
+
+        System.out.println("Non-Empty Optional:" + gender);
+        System.out.println("Non-Empty Optional: Gender value : " + gender.get());
+        System.out.println("Empty Optional: " + Optional.empty());
+
+        System.out.println("ofNullable on Non-Empty Optional: " + Optional.ofNullable(answer1));
+        System.out.println("ofNullable on Empty Optional: " + Optional.ofNullable(answer2));
+        
+        // java.lang.NullPointerException
+        System.out.println("ofNullable on Non-Empty Optional: " + Optional.of(answer2));
+    }
+}
+
+StringJoiner:--
+-------------------
+It is used to construct a sequence a characters seperated by a delimiter, string by passing delimiters like a comma(,), hyphen(-) etc. 
+You can also pass prefix and suffix to the char sequence. In this post, we will learn how to use StringJoiner with examples.
+
+Examples:--
+
+public class StringJoinerDemo {
+
+	public static void main(String[] args) {
+
+		
+		 StringJoiner joinNames = new StringJoiner(","); // passing comma(,) as delimiter
+		  // Adding values to StringJoiner
+		  joinNames.add("Rahul");
+		  joinNames.add("Raju");
+		  joinNames.add("Peter");
+		  joinNames.add("Raheem");
+		  
+		  StringJoiner joinNamess = new StringJoiner(",", "[","]"); 
+		  joinNamess.add("Rahul");
+		  joinNamess.add("Raju");
+		  joinNamess.add("Peter");
+		  joinNamess.add("Raheem");
+		  
+		  System.out.println(joinNames);
+		  System.out.println(joinNamess);
+	}
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
