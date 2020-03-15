@@ -33,6 +33,8 @@ Implementing Custom Endpoints:--
 Using @Endpoint
 Rest Controller endpoint
 
+Writing Custom health indicators:--
+By implement the HealthIndicator interface
 
 
 
