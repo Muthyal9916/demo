@@ -1,0 +1,42 @@
+Actuator Endpoints :-  Actuator endpoints let you monitor and interact with your appliction
+
+Enabling Endpoints : 
+By default, all endpoints except for shutdown are enabled.
+management.endpoint.health.show-details=always
+
+info.app.ecoding=UTF-8
+info.app.java.source=1.8
+info.app.java.target=1.8
+info.name.of.app=User management application
+management.endpoints.web.base-path=/userApp
+
+#enabled endpoints
+management.endpoint.health.enabled=false
+management.endpoints.enabled-by-default=false
+management.endpoint.info.enabled=true
+
+Exposing Endpoints:-- 
+ Endpoints may contain sensitive information, so careful consideration should be given about when to expose them.
+ To change which endpoints are exposed, use the following technoloy-specific include and exclude properties.
+ 
+management.endpoints.web.exposure.include=health,info
+management.endpoints.web.exposure.exclude=beans,metrics
+#management.endpoints.web.exposure.include=*
+
+Configuring Endpoints:--
+Endpoints automatically caches the response which dont take any parameter
+We can controll this feature as follows
+management.endpoint.beans.cache.time-to-live=10s
+The prefix management.endpoint.<name> is used to uniquely identify the endpoint that is being configured.
+
+Implementing Custom Endpoints:--
+Using @Endpoint
+Rest Controller endpoint
+
+
+
+
+
+
+
+
