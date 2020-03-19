@@ -127,6 +127,15 @@ Factory Design pattern:--
 Abstract Factory design pattern:--
 ------------------------
 
+Strategy Design pattern:-
+-----------------------------------------
+Strategy pattern is very useful for implementing a family of algorithms.
+It is a behavioural design pattern.
+With the strategy pattern we can select the algorithm at runtime.
+We can use it to select the sorting strategy for data.
+So we use strategy pattern to hide the algorithm implementation details from client.
+
+
 
 
 
