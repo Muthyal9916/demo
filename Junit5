@@ -3,3 +3,20 @@
 Marks a method as a Test
 Informs the junit engine what methods needs to run.
 
+assertEquals:-- It will takes two arguments one is expected and acutals
+assertEquals(expected,actuals);
+
+TestDriven Junit :-- first write the test cases and create the logic
+
+Maven Surefire plugin :-- Through maven commands need to run the Junit test cases.
+  have to add pom.xml file in this commands
+  <build>
+     <plugins>
+       <plugin>
+             <artifactId>maven-surefire-plugin</artifactId>
+             <version>2.22.1</version>
+       </plugin>
+     </plugins>
+   </build>
+  
+
