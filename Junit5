@@ -1,0 +1,5 @@
+@Test:--
+
+Marks a method as a Test
+Informs the junit engine what methods needs to run.
+
