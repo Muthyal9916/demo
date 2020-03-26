@@ -6,6 +6,11 @@ Building sql statements dynamically, by concatenating strings can cause Sqlinjec
 2. Use Stored procedures.
 
 
+department wise highest salary:--
+select max(sal),deptno
+from emp
+group by deptno
+
 
 
 Getting the 2nd height salary:--
