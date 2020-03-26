@@ -50,7 +50,15 @@ Junit 5 provides a feature to disable entire test classes are test methods.
 		assertThrows(ArithmeticException.class, () -> mathUtils.divide(1, 0),"Divideby zero should throw exception");
 		
 	}
-	
+
+assertNotNull() method:--
+---------------------
+This method helps us in validating that the particular object is not null.
+This method takes an actual value and checks whether it is null or not.
+If the actual value is not null then test case will pass
+
+@BeforeEach
+This will execute before each test method runs
 	
 
 
