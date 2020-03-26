@@ -18,4 +18,21 @@ Maven Surefire plugin :-- Through maven commands need to run the Junit test case
      </plugins>
    </build>
   
-
+How to write Junit test cases for Private Methods
+Using Reflection API
+---------------------------
+private int sumofTwoNumbers(Integer a,Integer b) {
+		return a + b;
+	}
+@Test
+	public void testSumofTwoNumbers() throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+		
+		Method method = MathUtils.class.getDeclaredMethod("sumofTwoNumbers", Integer.class,Integer.class);
+		method.setAccessible(true);
+		MathUtils mathutils = new MathUtils();
+		int sum = (int) method.invoke(mathutils, 10,30);
+		assertEquals(40, sum);
+		
+	} 
+ 
+ 
