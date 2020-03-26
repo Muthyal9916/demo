@@ -36,3 +36,26 @@ private int sumofTwoNumbers(Integer a,Integer b) {
 	} 
  
  
+Junit 5 provides a feature to disable entire test classes are test methods.
+@Disabled annotation allows us to skip or disable tests.
+@Disabled annotation takes in a optional parameter.
+
+@DisplayNames provide the Custome Names for test classes and methods
+
+	@Test
+	@DisplayName("Skip this test case.")
+	@Disabled
+	void testDivide() {
+		MathUtils mathUtils = new MathUtils();
+		assertThrows(ArithmeticException.class, () -> mathUtils.divide(1, 0),"Divideby zero should throw exception");
+		
+	}
+	
+	
+
+
+
+
+
+
+
