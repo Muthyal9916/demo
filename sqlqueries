@@ -26,3 +26,7 @@ Innerjoin:--
 It will display matching values in both tables
 select emp.deptno from emp INNER JOIN dept on emp.deptno = dept.deptno;
 
+example:--
+select emp.deptno,emp.ENAME from emp
+INNER JOIN dept on emp.DEPTNO = dept.DEPTNO;
+
