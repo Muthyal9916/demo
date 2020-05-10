@@ -26,6 +26,23 @@ Innerjoin:--
 It will display matching values in both tables
 select emp.deptno from emp INNER JOIN dept on emp.deptno = dept.deptno;
 
+
+Left Outer join:--
+----------------
+It will display table from left side along matching records with table
+select * from emp
+left join 
+dept on emp.deptno = dept.deptno;
+
+Rigth Join:--
+It will display right table along with matching records with another table.
+
+select * from emp
+right join 
+dept on emp.deptno = dept.deptno;
+
+
+
 select emp.deptno,emp.ENAME from emp
 INNER JOIN dept on emp.DEPTNO = dept.DEPTNO;
 
