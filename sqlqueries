@@ -65,3 +65,17 @@ It will display both tables along with matching records.
 select * from emp
 full join 
 dept on emp.deptno = dept.deptno;
+
+
+delete :--
+--------------------
+This can be used to delete the table data temporarliy, and we can rollback.
+delete from emp;
+
+truncate:-- 
+this can be used to delete the enitre table data permanently anc we can't rollback.
+truncate table tablename
+
+drop:--
+This can be used to drop the database object permanently , can't rollback.
+drop table tablename.
