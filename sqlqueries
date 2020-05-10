@@ -59,3 +59,9 @@ example:--
 select emp.deptno,emp.ENAME from emp
 INNER JOIN dept on emp.DEPTNO = dept.DEPTNO;
 
+Full Join:--
+It will display both tables along with matching records.
+
+select * from emp
+full join 
+dept on emp.deptno = dept.deptno;
