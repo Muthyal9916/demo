@@ -26,6 +26,18 @@ Innerjoin:--
 It will display matching values in both tables
 select emp.deptno from emp INNER JOIN dept on emp.deptno = dept.deptno;
 
+select emp.deptno,emp.ENAME from emp
+INNER JOIN dept on emp.DEPTNO = dept.DEPTNO;
+
+Natural Join:--
+-------------C
+Column having same name and same datatype present in both tables to be joined.
+
+select * from emp
+NATURAL JOIN
+dept;
+
+
 example:--
 select emp.deptno,emp.ENAME from emp
 INNER JOIN dept on emp.DEPTNO = dept.DEPTNO;
