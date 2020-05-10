@@ -79,3 +79,40 @@ truncate table tablename
 drop:--
 This can be used to drop the database object permanently , can't rollback.
 drop table tablename.
+
+
+-- create a new table from existing table:--
+create table emp1 as select * from emp;
+
+
+alter:--
+alter table emp1 add(address varchar2(22));
+alter table emp1 drop column address;
+
+rename:--
+rename second to first;
+
+update:-
+update first set address='Bangalore' where deptno=10;
+
+
+Like:--
+starts with 's' -- select * from first where ename like 'S%'
+Second letter starts with 'A' -- select * from first where ename like '_A%';
+any position -- select * from first where ename like '%A%';
+
+Group By:--
+
+select deptno,ename,count(*) from first
+group by
+deptno,ename;
+
+Using order by
+select deptno,ename,count(*) from first
+group by
+deptno,ename order by ename desc;
+
+
+
+
+
