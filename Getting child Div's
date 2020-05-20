@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Get All Child Divs from Parent Div in jQuery</title>
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.8.2.js"></script>
+<script type="text/javascript">
+$(function()
+{
+   $('#btn').click(function(){
+   
+      $('#pdiv>div').map(function(){
+	     alert(this.id);
+	  });
+   });
+});
+</script>
+</head>
+<body>
+<div id="pdiv">
+    <div id="cdiv1">div 1</div>
+	<div id="cdiv2">div 2</div>
+	<div id="cdiv3">div 3</div>
+	<div id="cdiv4">div 4</div>
+</div>
+<input type="button" id="btn" value="get child ids"/>
+</body>
+</html>
