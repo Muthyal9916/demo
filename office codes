@@ -1,0 +1,23 @@
+<ul id="parent_ul">
+    <li id='li_1'> LI-1 </li>
+    <li id='li_2'> LI-2 </li>
+</ul>
+$("li").click(function(event){
+    alert($(event.target).parent().attr('id'));
+});
+--------------------------------------
+<body onclick="myFunction(event)">
+
+<p>Click on a paragraph. An alert box will alert the element that triggered the event.</p>
+
+<div><strong>Note:</strong> The target property returns the element that triggered the event, and not necessarily the eventlistener's element.</div>
+
+<script>
+function myFunction(event) { 
+ var lastActiveTool = event.target.nodeName;
+ // alert(event.target.nodeName);
+ alert(lastActiveTool);
+}
+</script>
+
+</body>
