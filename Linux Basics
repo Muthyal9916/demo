@@ -2,3 +2,7 @@ Client operating system:-- Windows 10,windows 8,vista,windows xp,ubuntu desktop
 Server operating system:-- Redhat7,Redhat6,ubuntu,suse,bsd
 
 Linux: -- Security, Stable ,Command Line Interface(CLI),GUI
+
+
+update the java verison
+sudo update-java-alternatives -s java-1.8.0-openjdk-amd64
