@@ -1,0 +1,5 @@
+1. Spring Boot is an another approach to develop spring based applications with minimal configurations.
+2. Spring boot is mainly used to develop Rest APIs.
+3. The Primary feature of the Spring boot in Auto-configuration. It automatically configures the classes based on the requirement.
+4. Spring boot offers embedded server such as Jetty and tomcat etc.
+5. 
