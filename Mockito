@@ -3,3 +3,15 @@ Mocking is very important as part of Unit testing.
 There are two types mock frameworks are available
 1. Proxy based (EasyMock , Mockito)
 2. Byte code manipulation (PowerMock,JMockit)
+
+@Test
+public void testgetNameById(){
+
+//Creating proxy
+ ContactDao daoProxy = EasyMock.createMock(ContactDao.class);
+ 
+ //setting behaviour for proxy
+ EasyMock.expect(daoProxy.findNameById(101)).andReturn("Ashok");
+ 
+ EasyMock.replay(daoProxy);
+ 
