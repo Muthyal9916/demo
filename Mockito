@@ -1,0 +1,5 @@
+Mocking is a process of creating substitue object for real object.
+Mocking is very important as part of Unit testing.
+There are two types mock frameworks are available
+1. Proxy based (EasyMock , Mockito)
+2. Byte code manipulation (PowerMock,JMockit)
