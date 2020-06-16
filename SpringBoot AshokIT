@@ -3,6 +3,7 @@
 3. The Primary feature of the Spring boot in Auto-configuration. It automatically configures the classes based on the requirement.
 4. Spring boot offers embedded server such as Jetty and tomcat etc.
 5. 
+// internals SpringBootAppliction.run() method
 Step:1 Spring boot application execution will start from main method which is in start class.
 Step:2 As part of main method we will call SpringBootApplication.run(..) method.
 Step:3 SpringBootApplication.run(...) method performs bootstraping for spring boot application.
@@ -16,6 +17,7 @@ Step:10 Retrun IOC reference
 
 @SpringBootApplication annotation we will use at the main class.
 This one annotation is equal to below 3 annotations
-@Spring boot configuration
-@EnableAuto configuration
-@component scan
+@Spring boot configuration  -- It is an @configuration class to represent Javabased configuration
+@EnableAuto configuration -- Used this boot will load components (classes) to run our app.
+@component scan -- It is used to search for spring beans available in project.
+
