@@ -24,6 +24,12 @@ difference between session.load() adn session.get():--
 
 session.load(): if record is not found in the database it will return object not found or proxy it will return 
 session.get(): if record is not found in the database it will return null pointer exception.
+
+Difference between save() and saveOrUpdate() method:--
+--------------------------------------------------------
+save() :-- save() method will generates new Identifier and insert record into database.
+saveOrUpdate() :-- saveOrUpdate() can either insert or update based upon existence of record.
+
 		
 =================================
 
