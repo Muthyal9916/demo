@@ -654,7 +654,31 @@ public class AutoScanApp {
 }
 
 Autowired Annotation :--
+1 . Crating a class object any dependency is present inject those beans to their respective dependency.
 By default @autowired will perform the dependency checking to make sure the property has been wired properly
+
+Autowired ByType:--
+
+class name should be match
+example:--
+class Human{
+
+  private Heart heart;
+}
+class Heart{
+}
+
+.xml:--
+<bean id="obj" class="heart">
+<bean id="Human" class="human" autowired="bytype">
+
+-----------------------------------
+Autowired ByName:--
+variable name and beanid should match
+
+---------------------------------------------
+Instead of configuring autowire in xml,lets configure autowiring at java side using spring's @Autowired annotation.
+
 Employee:
 public class Employee {
 
