@@ -21,3 +21,13 @@ This one annotation is equal to below 3 annotations
 @EnableAuto configuration -- Used this boot will load components (classes) to run our app.
 @component scan -- It is used to search for spring beans available in project.
 
+
+----------------------------------
+IOC Stands for Inversion of Control
+IOC is a principle which is responsible to manage and collaborate objects in our application.
+IOC container will perform Dependency injection.
+The Process of injecting dependent object into target object is called Dependency Injection.
+
+
+
+
