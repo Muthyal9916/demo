@@ -49,6 +49,7 @@ INNER JOIN dept on emp.DEPTNO = dept.DEPTNO;
 Natural Join:--
 -------------C
 Column having same name and same datatype present in both tables to be joined.
+No need to specify join columns natural join automatically provide the join columns.
 
 select * from emp
 NATURAL JOIN
@@ -58,6 +59,7 @@ dept;
 example:--
 select emp.deptno,emp.ENAME from emp
 INNER JOIN dept on emp.DEPTNO = dept.DEPTNO;
+select ename,dname from emp NATURAL JOIN dept;
 
 Full Join:--
 It will display both tables along with matching records.
