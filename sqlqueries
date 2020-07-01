@@ -57,9 +57,8 @@ dept;
 
 
 example:--
-select emp.deptno,emp.ENAME from emp
-INNER JOIN dept on emp.DEPTNO = dept.DEPTNO;
-select ename,dname from emp NATURAL JOIN dept;
+1. select emp.deptno,emp.ENAME from emp INNER JOIN dept on emp.DEPTNO = dept.DEPTNO;
+2. select ename,dname from emp NATURAL JOIN dept;
 
 Full Join:--
 It will display both tables along with matching records.
@@ -67,6 +66,11 @@ It will display both tables along with matching records.
 select * from emp
 full join 
 dept on emp.deptno = dept.deptno;
+
+Coss Join:--
+---------------------------
+It will display First record from first table and get paired with all rows of second table.
+select ename,dname from emp CROSS JOIN dept;
 
 
 delete :--
