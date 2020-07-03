@@ -136,6 +136,11 @@ We can use it to select the sorting strategy for data.
 So we use strategy pattern to hide the algorithm implementation details from client.
 
 
+Adapter Design Pattern:--
+-----------------------------
+Adapter pattern works as a bridge between two incompatible interfaces.
+
+
 
 
 
