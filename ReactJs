@@ -19,6 +19,7 @@ Components :-
 2. Any section of UI
 3. Component should return an element. (must)
 4. Component accept properties (optional)
+5. Component first letter should be Capital.
 
 Use case:--
 1. Components can be independently developed.
