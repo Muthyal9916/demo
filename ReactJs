@@ -25,11 +25,26 @@ const helloworld = <h1>Welcome to ReactJS !</h1>
 export default App;
 ------------------------------------------------------------------------------------------------
 Components :-
-1. Components are the building blocks of any react app.
+1. Components are the building blocks of any react app.(Describe a part of the user interface)
 2. Any section of UI
 3. Component should return an element. (must)
 4. Component accept properties (optional)
 5. Component first letter should be Capital.
+
+Component Types:
+Stateless Functional Component : (JavaScript Functions)
+example : function Welcome(props){
+           return <h1>Hello,{props.name}</h1>
+          }
+ Stateful Class Component 
+           Class Extending Component class
+           Render method returning HTML
+ example:
+ class TeluguMovies extends React.Component{
+    render(){
+      return <div>Telugu Movies</div>;       
+    }
+}
 
 Use case:--
 1. Components can be independently developed.
@@ -83,4 +98,29 @@ function Movie(props){
     );
 }
 export default Movie;
+--------------------------------------------------------------------------------------------------
+class Components:
+class TeluguMovies extends React.Component{
+    render(){
+      return <div>Telugu Movies</div>;       
+    }
+}
+export default TeluguMovies;
+import TeluguMovies from './Movie/Movie.jsx';
+
+function App() {
+const helloworld = <h1>Welcome to ReactJS !</h1>
+  return (
+    <div className="App">
+     <TeluguMovies/>
+    </div>
+  );
+}
+export default App;
+
+
+
+
+
+
 
