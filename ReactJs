@@ -1,0 +1,26 @@
+ JSX:- It is a preprocessor we can add html code in javascript file.
+ App.js
+ 
+ function App() {
+const helloworld = <h1>Welcome to ReactJS !</h1>
+
+  return (
+    <div className="App">
+     <h1>Hello World!</h1>
+     {helloworld}
+    </div>
+  );
+}
+
+export default App;
+------------------------------------------------------------------------------------------------
+Components :-
+1. Components are the building blocks of any react app.
+2. Any section of UI
+3. Component should return an element. (must)
+4. Component accept properties (optional)
+
+Use case:--
+1. Components can be independently developed.
+2. Re - Usable.
+
