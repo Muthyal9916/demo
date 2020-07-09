@@ -24,3 +24,27 @@ Use case:--
 1. Components can be independently developed.
 2. Re - Usable.
 
+Create folder under src Movie inside folder create Movie file like movie.jsx
+import * as React from 'react';
+function Movie(){
+    return <div>Kushi</div>;
+}
+export default Movie;
+
+import Movie component in App.js
+import Movie from './Movie/Movie.jsx'
+
+function App() {
+const helloworld = <h1>Welcome to ReactJS !</h1>
+
+  return (
+    <div className="App">
+     <h1>Hello World!</h1>
+     {helloworld}
+     <Movie/>
+    </div>
+  );
+}
+
+export default App;
+
