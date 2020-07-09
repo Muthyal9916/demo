@@ -1,4 +1,14 @@
- JSX:- It is a preprocessor we can add html code in javascript file.
+React - Is used to build the Single Page Applications.
+        Created by Facebook.
+        Component Based Architecture using Javascript and JSX(Syntax extention of Javascript).
+        One way data binding
+        Rendering is done on Server-side
+        React has Virtual DOM
+        Easy to create dynamic web and mobile applications.
+        
+        
+
+JSX:- It is a preprocessor we can add html code in javascript file.
  App.js
  
  function App() {
@@ -48,4 +58,29 @@ const helloworld = <h1>Welcome to ReactJS !</h1>
 }
 
 export default App;
+----------------------------------------------------------------------
+Props:--
+App.js
+function App() {
+const helloworld = <h1>Welcome to ReactJS !</h1>
+
+  return (
+    <div className="App">
+     <h1>Hello World!</h1>
+     {helloworld}
+     <Movie name='Maharshi' likes='123.oK'/>
+    </div>
+  );
+}
+export default App;
+Movie.jsx
+function Movie(props){
+    return (
+  <div className='movie-card'>
+    <img src='https://www.telugu360.com/wp-content/uploads/2019/05/Maharshi-Movie-Review.jpg'/><br/>
+    <label>{props.likes}{props.name}</label>
+    </div>
+    );
+}
+export default Movie;
 
