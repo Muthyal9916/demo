@@ -1,0 +1,7 @@
+.movies-section{
+    display: flex; // side by side elements showing
+    justify-content: space-between; // between space two elements
+    width: 700px;
+    background-color: green;
+    margin: auto; // elements showing center
+}
