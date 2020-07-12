@@ -118,6 +118,39 @@ const helloworld = <h1>Welcome to ReactJS !</h1>
 }
 export default App;
 
+Method in Class Component:--
+---------------------------
+class TeluguMovies extends React.Component{
+
+    getMovies = (banner,name,likes) =>{
+        return <Movie banner={banner} name={name} likes={likes}/>;
+    };
+
+    render(){
+        return (
+            <div className='movies-section'>
+                {this.getMovies(
+                    'https://www.telugu360.com/wp-content/uploads/2019/05/Maharshi-Movie-Review.jpg',
+                    'Maharshi',
+                    '123.oK'
+                )}
+            <Movie
+            banner ='https://www.telugu360.com/wp-content/uploads/2019/05/Maharshi-Movie-Review.jpg'
+             name='Maharshi'
+             likes='123.oK'
+             />
+             
+             <Movie
+            banner ='https://www.telugu360.com/wp-content/uploads/2019/05/Maharshi-Movie-Review.jpg'
+             name='Maharshi'
+             likes='123.oK'
+             />
+             </div>
+        );
+    }
+}
+export default TeluguMovies;
+
 
 
 
