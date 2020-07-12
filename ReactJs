@@ -150,6 +150,25 @@ class TeluguMovies extends React.Component{
     }
 }
 export default TeluguMovies;
+----------------------------------------------------
+Routers:-
+Routing will work on Component-level.
+npm install react-router-dom
+
+App.js
+import { BrowserRouter as Router, Route,Link } from 'react-router-dom';
+function App() {
+  return (
+    <div className='App'>
+      <Router>
+         <Route path="/teluguMovies" component={TeluguMovies}/>
+         <Route path="/caliculator" component={Caliculator}/>
+      </Router>
+    </div>
+  );
+}
+export default App;
+
 
 
 
