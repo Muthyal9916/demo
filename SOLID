@@ -1,0 +1,23 @@
+SOLID:--
+Single Responsibility Principle:  
+If a class or a method does more than one procedure, it is advisible to seperate it into distinct class/methods ,
+It can be done easily with the help on interfaces.
+a method should be only one response , if we want to perform a class as more actions then we can create interface
+example : class Book{
+             private int noofpages;
+             private String author;
+             
+             getter & setter
+             
+             print and save method is not realted to Book (we can seperate these  methods move to interface).
+             
+             
+Open closed principle: -- Software entites should be open for extention, but closed for modification , we have to design every new module -> if we add a new behaviour.
+                          we do not have to change the existing modules.
+                          
+                          
+                          
+Interface Segregation principle :-- It is not good if an interface contain lots of methods , we should seperate them accordingly.
+                  The Interface Segregation principle that no client should be forced to depend on methods does not use.
+                   When we can,  we should break our interfaces in many smaller ones so they better satisfy exact needs of our clients.
+                   
