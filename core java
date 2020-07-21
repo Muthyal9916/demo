@@ -1,3 +1,5 @@
+Overriding :-- Defining a method inside the  child class having same name and same signature of its parent class method.
+
 MethodOverloading:--
 ------------------
 Step1: Automatic promotion in overloading
