@@ -13,13 +13,17 @@ group by deptno
 
 
 
-Getting the 2nd height salary:--
+Getting the 2nd highest salary:--
 --------------------------------
 1.  select max(sal) from emp where sal < (select max(sal) from emp);
 
-3rd heigth salary:--
+3rd highest salary:--
 ---------------------
 select max(sal) from emp where sal < (select max(sal) from emp where sal <(select max(sal) from emp));
+
+nth highest salary:--
+---------------------------------
+select min salary from (select distinct salary from emp order by salary desc) where rownum < 3
 
 Innerjoin:--
 --------------------
