@@ -133,7 +133,9 @@ group by d.deptno,d.dname;
 
 
 
-
-
+2. fetch top 3 salaries
+select * from(select * from emp order by sal desc)
+where rownum <=3
+order by sal;
 
 
