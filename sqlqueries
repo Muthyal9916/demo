@@ -122,6 +122,17 @@ select deptno,ename,count(*) from first
 group by
 deptno,ename order by ename desc;
 
+-------------------------------------------------
+1. Display sal wise dept table
+
+select d.deptno,d.dname,max(e.sal) as maxsal
+from emp e
+inner join dept d
+on e.deptno = d.deptno
+group by d.deptno,d.dname;
+
+
+
 
 
 
