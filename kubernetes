@@ -1,20 +1,42 @@
-Create one master and 6 nodes:----
-==================================
+Kubernetes:--
 
-gcloud preview container clusters create clustername --zone asia-east1-b --password gmail@123 --num-nodes 6
+1. Secrets : Confidential data
+2. ConfigMaps : Non - Confidential data
 
+ConfigMap:
 
-accessing the api:--
-================
-curl http://masterport -k -u admin
--k avoid the ssl error
--u username
+1. ConfigMap Stores the configuration data in key-value pairs
+2. We can change the confiuration of the container without having to rebuild the container
+3. It can be consumed in the pods.
 
-checking the pods in api:--
------------------------------ 
-curl http://masterport/api/v1beta1/pods or services or replicationController -k -u admin
+conifg-map.yaml:--
+---------------------
+apiVersion: v1
+kind: ConfigMap
+metadata:
+   name: my-config
+   namespace: default
+data:
+  mydata: hello-world
+  
+configmap-pod.yaml
+---------------------
+apiVersion: v1
+kind: Pod
+metadata:
+   name: cm-pod
+   namespace: default
+spec:
+   containers:
+   - name: nginx
+     image: nginx
+     ports:
+     - containerPort: 80
+     env:
+       - name: cm
+         valueFrom:
+            configMapKeyRef:
+              name: my-config
+              key: mydata
 
-creating replicas:-
------------------------- 
-kubectl scale rc nginx --replicas=5
 
