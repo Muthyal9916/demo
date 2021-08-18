@@ -1,0 +1,6 @@
+ELK(ElasticSearch,LogStach,Kibana):--
+
+LogStach :-- Takes care of data collection and processing.
+ElasticSearch :- Indexes and stores the data.
+Kibana :- Provides a User Interface for querying the data and visualizing it.
+
